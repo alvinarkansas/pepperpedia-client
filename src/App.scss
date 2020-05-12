@@ -1,0 +1,338 @@
+$head-font: 'Philosopher', sans-serif;
+$body-font: 'Poppins', sans-serif;
+$major: #FFF;
+$accent: #F4C268;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $body-font;
+  font-weight: 300;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+nav {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: fixed;
+  background: $accent;
+  z-index: 2;
+}
+
+.profile-picture-wrapper {
+  overflow: hidden;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: $accent;
+  border-radius: 50%;
+  cursor: pointer;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+nav > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+
+.nav-link {
+  cursor: pointer;
+  transition: .3s;
+  &:hover {
+    color: $accent;
+  }
+}
+
+header {
+  padding-top: 10rem;
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.head-font {
+  font-family: $head-font;
+}
+
+.txt-jumbo {
+  font-size: 3rem;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  div {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: $major;
+    height: 80%;
+    padding: .5rem 0;
+  }
+}
+
+.minimal-input {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  padding: .5rem .75rem;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+}
+
+.minimal-input-sm {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  padding: .5rem .75rem;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+}
+
+.minimal-button {
+  border: none;
+  border-radius: 2rem;
+  padding: .9rem 5rem;
+  background: $accent;
+  color: $major;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#decoration-left {
+  display: none;
+}
+
+#decoration-right {
+  display: none;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+
+.mb-4 {
+  margin-bottom: 4rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 10rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 6rem;
+  row-gap: 4.5rem;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 25rem;
+  box-shadow: 10px 11px 17px -6px rgba(0,0,0,0.32);
+}
+
+.thumbnail-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 65%;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.recipe-description {
+  width: 100%;
+  height: 35%;
+  padding: 1rem 1.25rem;
+  overflow: hidden;
+  h2 {
+    font-family: $head-font;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p {
+    font-weight: 300;
+  }
+}
+
+.main-wrapper {
+  padding: 8rem 1rem 3rem 1rem;
+  h2 {
+    font-size: 1rem;
+  }
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: inherit;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  height: 18rem;
+  outline: none;
+  resize: none;
+}
+
+form input {
+  font-weight: 300;
+}
+
+
+
+
+header::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;  
+}
+
+:-ms-input-placeholder {  
+  text-align: center; 
+}
+
+.modal {
+  position: absolute;
+  // top: 12.5rem;
+  // left: 30rem;
+  // right: 30rem;
+  // bottom: 12.5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding: 3.5rem;
+  background: $major;
+  box-shadow: 10px 11px 17px -6px rgba(0,0,0,0.32);
+  outline: none;
+}
+
+.modal > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.48);
+  z-index: 3;
+}
+
+.center-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 600px) {
+  #decoration-left {
+    display: block;
+    position: absolute;
+    top: 10rem;
+    left: -20rem;
+    // left: -25rem;
+    img {
+      width: 50vw;
+    }
+  }
+  
+  #decoration-right {
+    display: block;
+    position: absolute;
+    top: 11rem;
+    right: -20rem;
+    // right: -25rem;
+    img {
+      width: 50vw;
+    }
+  }
+
+  .txt-jumbo {
+    font-size: 5rem;
+  }
+
+  .minimal-input {
+    font-size: 1.75rem;
+    padding: .5rem 1rem;
+  }
+
+  nav {
+    padding: 0 6rem;
+    background: $major;
+  }
+
+  .minimal-button {
+    font-size: 1.1rem;
+  }
+
+  .main-wrapper {
+    padding: 8rem 15rem 3rem 15rem;
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+}
