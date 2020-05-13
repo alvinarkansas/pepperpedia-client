@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_IS_LOGGED_IN, SET_USER_DATA, SET_MODAL_IS_OPEN } from '../store/action';
 import { useHistory } from 'react-router-dom';
+// import { AiOutlineMenu } from 'react-icons/ai';
 
 export default function Nav() {
   const dispatch = useDispatch();
@@ -11,12 +12,12 @@ export default function Nav() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const modalIsOpen = useSelector(state => state.modalIsOpen);
   const isLoggedIn = useSelector(state => state.isLoggedIn);
   // const profile_picture = useSelector(state => state.userData.profile_picture);
 
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   const profile_picture = localStorage.getItem('profile_picture');
 
   const signIn = (e) => {
@@ -46,6 +47,7 @@ export default function Nav() {
   const signOut = () => {
     localStorage.clear();
     dispatch(SET_IS_LOGGED_IN(false));
+    history.push('/');
   }
 
   return (
@@ -55,19 +57,23 @@ export default function Nav() {
           ?
           <nav>
             <p>LOGO</p>
-            <div>
-              <p className="nav-link" onClick={() => history.push('/')}>Discover</p>
-              <p className="nav-link" onClick={signOut}>Sign Out</p>
+            <ul>
+              <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
+              {/* eslint-disable-next-line */}
+              <li><a href="#" onClick={signOut}>Sign Out</a></li>
               <div className="profile-picture-wrapper">
                 <img src={profile_picture} alt="ava" />
               </div>
-            </div>
+            </ul>
           </nav>
           :
           <>
             <nav>
               <p>LOGO</p>
-              <p className="nav-link" onClick={() => dispatch(SET_MODAL_IS_OPEN(true))}>SIGN IN</p>
+              <ul>
+                {/* eslint-disable-next-line */}
+                <li><a href="#" onClick={() => dispatch(SET_MODAL_IS_OPEN(true))}>Sign In</a></li>
+              </ul>
             </nav>
             <Modal
               isOpen={modalIsOpen}

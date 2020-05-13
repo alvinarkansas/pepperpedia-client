@@ -3,6 +3,12 @@ $body-font: 'Poppins', sans-serif;
 $major: #FFF;
 $accent: #F4C268;
 
+@mixin mediaQuery($px) {
+  @media (min-width: $px) {
+    @content;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,14 +24,78 @@ body {
 
 nav {
   width: 100%;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 4rem;
   padding: 0 2rem;
   position: fixed;
   background: $accent;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  ul {
+    // position: absolute;
+    // top: 8rem;
+    // left: 50%;
+    // z-index: -1;
+    // transform: translate(-50%,-250%);
+    list-style: none;
+    // width: 100vw;
+    // height: 75vh;
+    // transition: .3s;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    // justify-content: flex-start;
+    // background: $accent;
+    // padding-bottom: 3rem;
+    li {
+      // margin-bottom: 1rem;
+      margin-right: 2rem;
+      a {
+        text-decoration: none;
+        color: black;
+        text-transform: uppercase;
+        transition: .3s;
+        &:hover {
+          color: $accent;
+        }
+      }
+    }
+  }
+  // .check-btn {
+  //   color: white;
+  //   position: absolute;
+  //   top: 1.2rem;
+  //   right: 2rem;
+  //   cursor: pointer;
+  // }
+  // #check {
+  //   display: none;
+  // }
+  // #check:checked ~ ul {
+  //   position: absolute;
+  //   top: 7.5rem;
+  //   left: 50%;
+  //   transform: translate(-50%,-50%);
+  // }
+  @include mediaQuery(600px) {
+    padding: 0 6rem;
+    background: $major;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    ul {
+      // display: flex;
+      // align-items: center;
+      // position: static;
+      li {
+        a {
+          color: black;
+        }
+      }
+    }
+  }
 }
 
 .profile-picture-wrapper {
@@ -72,23 +142,31 @@ header {
   font-family: $head-font;
 }
 
+.head-font-thin {
+  font-family: $head-font;
+  font-weight: 300;
+}
+
 .txt-jumbo {
   font-size: 3rem;
+  @include mediaQuery(600px) {
+    font-size: 5rem;
+  }
 }
 
 .input-container {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
-  div {
+  div:nth-child(2) {
     cursor: pointer;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 0;
     background: $major;
     height: 80%;
-    padding: .5rem 0;
+    padding: .5rem 0 .5rem .5rem;
   }
 }
 
@@ -100,16 +178,92 @@ header {
   font-family: inherit;
   width: 100%;
   outline: none;
+  @include mediaQuery(600px) {
+    font-size: 1.75rem;
+    padding: .5rem 1rem;
+  }
 }
 
 .minimal-input-sm {
   border: none;
   border-bottom: 1px solid black;
-  font-size: 1rem;
+  font-size: .8rem;
   padding: .5rem .75rem;
   font-family: inherit;
   width: 100%;
   outline: none;
+  @include mediaQuery(600px) {
+    font-size: 1rem;
+    padding: .5rem 1rem;
+  }
+}
+
+input[type=file] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.minimal-input-file {
+  display: inline-block;
+  padding: .9rem 4rem;
+  border-radius: 2rem;
+  background: $accent;
+  color: $major;
+  cursor: pointer;
+  transition: .3s;
+  text-align: center;
+  &:hover {
+    transform: scale(1.1);
+  }
+  label {
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 600;
+    font-size: .8rem;
+    cursor: pointer;
+    user-select: none;
+    margin-top: -10px;
+  }
+}
+
+.input-upload-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  div {
+    margin-bottom: 1rem;
+  }
+  @include mediaQuery(600px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.step-num {
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 2rem;
+  // width: 2.4rem;
+  height: 33px;
+  width: 33px;
+  border-radius: 50%;
+  color: $major;
+  padding: .1rem;
+  @include mediaQuery(600px) {
+    width: 33px;
+  }
+}
+
+.has-error {
+  border: 1px solid #d40d0d;
+  outline: none;
+  box-shadow: 0px 0px 6px 2px rgba(191,19,19,0.8);
 }
 
 .minimal-button {
@@ -120,21 +274,67 @@ header {
   color: $major;
   font-family: inherit;
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: 600;
   cursor: pointer;
   transition: .3s;
   &:hover {
     transform: scale(1.1);
   }
+  @include mediaQuery(600px) {
+    font-size: 1.1rem;
+  }
+}
+
+.minimal-button-md {
+  padding: .9rem 4rem;
+  font-size: .8rem;
+}
+
+.circle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  padding: .1rem;
+  border-radius: 50%;
+}
+
+.disabled-button {
+  background: grey;
+  cursor: default;
+  &:hover {
+    transform: none;
+  }
 }
 
 #decoration-left {
   display: none;
+  @include mediaQuery(600px) {
+    display: block;
+    position: absolute;
+    top: 10rem;
+    left: -20rem;
+    // left: -25rem;
+    img {
+      width: 50vw;
+    }
+  }
 }
 
 #decoration-right {
   display: none;
+  @include mediaQuery(600px) {
+    display: block;
+    position: absolute;
+    top: 11rem;
+    right: -20rem;
+    // right: -25rem;
+    img {
+      width: 50vw;
+    }
+  }
 }
 
 .mb-1 {
@@ -156,11 +356,27 @@ header {
   margin-bottom: 4rem;
 }
 
+.mr-half {
+  margin-right: .5rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+
+.mr-2 {
+  margin-right: 2rem;
+}
+
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 10rem;
+  padding: 5rem 1rem;
+  @include mediaQuery(600px) {
+    padding: 5rem 10rem;
+  }
 }
 
 .grid-container {
@@ -176,6 +392,7 @@ main {
   width: 100%;
   height: 25rem;
   box-shadow: 10px 11px 17px -6px rgba(0,0,0,0.32);
+  cursor: pointer;
 }
 
 .thumbnail-wrapper {
@@ -212,6 +429,15 @@ main {
   h2 {
     font-size: 1rem;
   }
+  @include mediaQuery(600px) {
+    padding: 8rem 9rem 3rem 9rem;
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+  @include mediaQuery(900px) {
+    padding: 8rem 15rem 3rem 15rem;
+  }
 }
 
 textarea {
@@ -220,10 +446,21 @@ textarea {
   border-bottom: 1px solid black;
   font-family: inherit;
   padding: .5rem .75rem;
-  font-size: 1rem;
-  height: 18rem;
+  font-size: .8rem;
+  font-weight: 300;
+  height: 6.5rem;
   outline: none;
   resize: none;
+  @include mediaQuery(600px) {
+    font-size: 1rem;
+  }
+}
+
+.error-text {
+  margin-top: -1.5rem;
+  color: #cf0909;
+  font-size: .75rem;
+  margin-bottom: 2rem;
 }
 
 form input {
@@ -251,10 +488,6 @@ header::-webkit-input-placeholder {
 
 .modal {
   position: absolute;
-  // top: 12.5rem;
-  // left: 30rem;
-  // right: 30rem;
-  // bottom: 12.5rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -288,51 +521,67 @@ header::-webkit-input-placeholder {
   align-items: center;
 }
 
-@media only screen and (min-width: 600px) {
-  #decoration-left {
-    display: block;
-    position: absolute;
-    top: 10rem;
-    left: -20rem;
-    // left: -25rem;
-    img {
-      width: 50vw;
+.placeholder-container {
+  overflow: hidden;
+  width: 100%;
+  height: 15rem;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  @include mediaQuery(600px) {
+    height: 20rem;
+  }
+}
+
+.detail-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  @include mediaQuery(600px) {
+    flex-direction: row;
+  }
+}
+
+.container-25 {
+  width: 100%;
+  @include mediaQuery(600px) {
+    width: 25%;
+  }
+}
+
+.container-75 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  @include mediaQuery(600px) {
+    width: 75%;
+    padding-left: 5rem;
+  }
+}
+
+.subtitle-underline {
+  font-size: 1.1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #cccccc;
+}
+
+.minimal-ul {
+  li {
+    list-style: none;
+    display: flex;
+    p {
+      text-decoration: none;
+      line-height: 2rem;
     }
   }
-  
-  #decoration-right {
-    display: block;
-    position: absolute;
-    top: 11rem;
-    right: -20rem;
-    // right: -25rem;
-    img {
-      width: 50vw;
-    }
-  }
+}
 
-  .txt-jumbo {
-    font-size: 5rem;
-  }
-
-  .minimal-input {
-    font-size: 1.75rem;
-    padding: .5rem 1rem;
-  }
-
-  nav {
-    padding: 0 6rem;
-    background: $major;
-  }
-
-  .minimal-button {
-    font-size: 1.1rem;
-  }
-
-  .main-wrapper {
-    padding: 8rem 15rem 3rem 15rem;
-    h2 {
-      font-size: 1.1rem;
-    }
+.square-thumbnail {
+  @include mediaQuery(600px) {
+    height: 15rem;
   }
 }

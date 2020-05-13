@@ -17,6 +17,10 @@ export const SET_MODAL_IS_OPEN = (data) => {
     return { type: 'SET_MODAL_IS_OPEN', payload: data }
 }
 
+export const SET_RECIPE = (data) => {
+    return { type: 'SET_RECIPE', payload: data }
+}
+
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
         axios({
@@ -49,6 +53,22 @@ export const ADD_RECIPE = (data) => {
             })
             .catch(err => {
                 console.log(err.response);
+            })
+    }
+}
+
+export const FETCH_RECIPE = (id) => {
+    return (dispatch) => {
+        axios({
+            method: 'get',
+            url: `http://localhost:3000/recipes/${id}`
+        })
+            .then(({ data }) => {
+                dispatch(SET_RECIPE(data));
+                console.log('> > > > ', data);
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 }

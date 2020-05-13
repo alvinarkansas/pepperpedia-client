@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <div>
       <Jumbotron />
-      <main>
-        <h2 className="mb-4">New Recipes</h2>
+      <main id="recipes">
+        <h2 className="mb-4" style={{textAlign: 'center'}}>New Recipes</h2>
         <div className="grid-container">
           {recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} />)}
         </div>

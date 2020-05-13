@@ -3,6 +3,7 @@ const initialState = {
     isLoggedIn: false,
     userData: {},
     modalIsOpen: false,
+    recipe: {},
 }
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +18,9 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_MODAL_IS_OPEN') {
         return { ...state, modalIsOpen: action.payload }
+    }
+    if (action.type === 'SET_RECIPE') {
+        return { ...state, recipe: action.payload }
     }
     return state
 } 
