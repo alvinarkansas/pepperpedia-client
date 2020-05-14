@@ -15,7 +15,8 @@ export default function RecipeDetail() {
 
   if (recipe.User) {
     return (
-      <div className="main-wrapper">
+      // <div className="main-wrapper">
+        <main>
         <div className="detail-page">
           <div className="container-25 mb-2">
             <div className="thumbnail-wrapper square-thumbnail mb-1">
@@ -55,7 +56,8 @@ export default function RecipeDetail() {
             </ul>
           </div>
         </div>
-      </div>
+        </main>
+      // </div>
     )
   }
   return null;

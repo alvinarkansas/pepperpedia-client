@@ -6,6 +6,7 @@ const initialState = {
     recipe: {},
     searchedRecipes: [],
     searchError: '',
+    userRecipes: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +30,9 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_SEARCH_ERROR') {
         return { ...state, searchError: action.payload }
+    }
+    if (action.type === 'SET_USER_RECIPES') {
+        return { ...state, userRecipes: action.payload }
     }
     return state
 } 

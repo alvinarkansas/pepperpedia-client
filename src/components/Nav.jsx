@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_IS_LOGGED_IN, SET_USER_DATA, SET_MODAL_IS_OPEN } from '../store/action';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 // import { AiOutlineMenu } from 'react-icons/ai';
 
 export default function Nav() {
@@ -24,19 +24,23 @@ export default function Nav() {
     e.preventDefault();
     axios.post("http://localhost:3000/users/signin", { email, password })
       .then(({ data }) => {
-        const { token, first_name, last_name, profile_picture } = data;
+        const { token, first_name, last_name, profile_picture, id, email } = data;
         console.log(data);
         dispatch(SET_IS_LOGGED_IN(true));
         dispatch(SET_USER_DATA({
           token,
           first_name,
           last_name,
-          profile_picture
+          profile_picture,
+          id,
+          email
         }))
         localStorage.setItem('token', data.token);
         localStorage.setItem('first_name', data.first_name);
         localStorage.setItem('last_name', data.last_name);
         localStorage.setItem('profile_picture', data.profile_picture);
+        localStorage.setItem('id', data.id);
+        localStorage.setItem('email', data.email);
         dispatch(SET_MODAL_IS_OPEN(false));
       })
       .catch(err => {
@@ -56,14 +60,16 @@ export default function Nav() {
         isLoggedIn
           ?
           <nav>
-            <p>LOGO</p>
+            <p >LOGO</p>
             <ul>
               <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
               {/* eslint-disable-next-line */}
               <li><a href="#" onClick={signOut}>Sign Out</a></li>
-              <div className="profile-picture-wrapper">
-                <img src={profile_picture} alt="ava" />
-              </div>
+              <Link to="/profile">
+                <div className="profile-picture-wrapper">
+                  <img src={profile_picture} alt="ava" />
+                </div>
+              </Link>
             </ul>
           </nav>
           :
@@ -71,6 +77,7 @@ export default function Nav() {
             <nav>
               <p>LOGO</p>
               <ul>
+                <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
                 {/* eslint-disable-next-line */}
                 <li><a href="#" onClick={() => dispatch(SET_MODAL_IS_OPEN(true))}>Sign In</a></li>
               </ul>

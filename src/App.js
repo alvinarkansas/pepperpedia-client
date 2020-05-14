@@ -6,6 +6,7 @@ import Home from './views/Home';
 import WriteRecipe from './views/WriteRecipe';
 import RecipeDetail from './views/RecipeDetail';
 import SearchResult from './views/SearchResult';
+import Profile from './views/Profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/writerecipe" component={WriteRecipe} />
         <Route path="/detail/:id" component={RecipeDetail} />
         <Route path="/search" component={SearchResult} />
+        <Route path="/profile" component={Profile} />
       </Switch>
     </Router>
   );

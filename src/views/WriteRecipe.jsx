@@ -39,9 +39,7 @@ export default function WriteRecipe() {
   }
 
   const changeThumbnail = e => {
-    console.log('lalalalala');
     console.log(e.target.files[0]);
-
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
@@ -97,7 +95,7 @@ export default function WriteRecipe() {
                 <input onChange={changeThumbnail} name="thumbnail" className="minimal-input-file" type="file" />
                 <label htmlFor="thumbnail">Choose a file</label>
               </div>
-              <button className="minimal-button minimal-button-md" onClick={handleUpload}>Upload</button>
+              <button className={image === null ? "minimal-button minimal-button-md disabled-button" : "minimal-button minimal-button-md" } onClick={handleUpload}>Upload</button>
             </div>
 
             <h2 className="head-font-thin mb-1">Description</h2>

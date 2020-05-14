@@ -29,6 +29,10 @@ export const SET_SEARCH_ERROR = (data) => {
     return { type: 'SET_SEARCH_ERROR', payload: data }
 }
 
+export const SET_USER_RECIPES = (data) => {
+    return { type: 'SET_USER_RECIPES', payload: data }
+}
+
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
         axios({
@@ -97,3 +101,20 @@ export const SEARCH_RECIPE = (term) => {
             })
     }
 }
+
+export const FETCH_USER_RECIPE = (userId) => {
+    return (dispatch) => {
+        axios({
+            method: 'get',
+            url: `http://localhost:3000/recipes/by/${userId}`
+        })
+            .then(({ data }) => {
+                dispatch(SET_USER_RECIPES(data));
+                console.log('> > > > ', data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
