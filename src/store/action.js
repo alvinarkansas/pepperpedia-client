@@ -21,6 +21,14 @@ export const SET_RECIPE = (data) => {
     return { type: 'SET_RECIPE', payload: data }
 }
 
+export const SET_SEARCHED_RECIPES = (data) => {
+    return { type: 'SET_SEARCHED_RECIPES', payload: data }
+}
+
+export const SET_SEARCH_ERROR = (data) => {
+    return { type: 'SET_SEARCH_ERROR', payload: data }
+}
+
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
         axios({
@@ -69,6 +77,23 @@ export const FETCH_RECIPE = (id) => {
             })
             .catch(err => {
                 console.log(err);
+            })
+    }
+}
+
+export const SEARCH_RECIPE = (term) => {
+    return (dispatch) => {
+        axios({
+            method: 'get',
+            url: `http://localhost:3000/recipes/search?term=${term}`
+        })
+            .then(({ data }) => {
+                dispatch(SET_SEARCHED_RECIPES(data));
+                console.log('> > > > ', data);
+            })
+            .catch(err => {
+                dispatch(SET_SEARCH_ERROR(err.response.data))
+                console.log(err.response.data);
             })
     }
 }

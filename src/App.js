@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Home from './views/Home';
 import WriteRecipe from './views/WriteRecipe';
 import RecipeDetail from './views/RecipeDetail';
+import SearchResult from './views/SearchResult';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/writerecipe" component={WriteRecipe} />
         <Route path="/detail/:id" component={RecipeDetail} />
+        <Route path="/search" component={SearchResult} />
       </Switch>
     </Router>
   );

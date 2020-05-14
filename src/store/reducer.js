@@ -4,6 +4,8 @@ const initialState = {
     userData: {},
     modalIsOpen: false,
     recipe: {},
+    searchedRecipes: [],
+    searchError: '',
 }
 
 export default function reducer(state = initialState, action) {
@@ -21,6 +23,12 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_RECIPE') {
         return { ...state, recipe: action.payload }
+    }
+    if (action.type === 'SET_SEARCHED_RECIPES') {
+        return { ...state, searchedRecipes: action.payload }
+    }
+    if (action.type === 'SET_SEARCH_ERROR') {
+        return { ...state, searchError: action.payload }
     }
     return state
 } 
