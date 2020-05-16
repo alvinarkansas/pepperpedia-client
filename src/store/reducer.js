@@ -3,10 +3,13 @@ const initialState = {
     isLoggedIn: false,
     userData: {},
     modalIsOpen: false,
+    modalSignUpIsOpen: false,
+    modalEditIsOpen: false,
     recipe: {},
     searchedRecipes: [],
     searchError: '',
     userRecipes: [],
+    aUser: {},
 }
 
 export default function reducer(state = initialState, action) {
@@ -19,8 +22,27 @@ export default function reducer(state = initialState, action) {
     if (action.type === 'SET_USER_DATA') {
         return { ...state, userData: action.payload }
     }
+    if (action.type === 'EDIT_USER_DATA') {
+        return {
+            ...state,
+            userData: {
+                ...state.userData,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                bio: action.payload.bio,
+                location: action.payload.location,
+                profile_picture: action.payload.profile_picture
+            }
+        }
+    }
     if (action.type === 'SET_MODAL_IS_OPEN') {
         return { ...state, modalIsOpen: action.payload }
+    }
+    if (action.type === 'SET_MODAL_SIGNUP_IS_OPEN') {
+        return { ...state, modalSignUpIsOpen: action.payload }
+    }
+    if (action.type === 'SET_MODAL_EDIT_IS_OPEN') {
+        return { ...state, modalEditIsOpen: action.payload }
     }
     if (action.type === 'SET_RECIPE') {
         return { ...state, recipe: action.payload }
@@ -33,6 +55,9 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_USER_RECIPES') {
         return { ...state, userRecipes: action.payload }
+    }
+    if (action.type === 'SET_A_USER') {
+        return { ...state, aUser: action.payload }
     }
     return state
 } 

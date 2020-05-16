@@ -110,6 +110,10 @@ nav {
   height: 2.5rem;
   background: $accent;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   cursor: pointer;
   img {
     height: 100%;
@@ -117,11 +121,78 @@ nav {
     object-fit: cover;
     object-position: center;
   }
+  &::after {
+    content: "";
+    background: black;
+    height: 2.5rem;
+    width: 2.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s ease;
+  }
+  &:hover::after {
+    opacity: .5;
+  }
 }
 
 .bigger {
   width: 6rem;
   height: 6rem;
+  .ava-letter {
+    font-size: 2.1rem;
+  }
+  &:hover::after {
+    opacity: 0;
+  }
+}
+
+.ava-input {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: .3s;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, .7s);
+  }
+  &::before {
+    content: "change photo";
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: .85rem;
+    text-align: center;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s ease;
+  }
+  &:hover::before {
+    opacity: .5;
+  }
+}
+
+.pencil-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 1;
+}
+
+.ava-letter {
+  color: $major;
 }
 
 nav > div {
@@ -191,7 +262,7 @@ header {
   outline: none;
   @include mediaQuery(600px) {
     font-size: 1.75rem;
-    padding: .5rem 1rem;
+    // padding: .5rem 1rem;
   }
 }
 
@@ -205,7 +276,6 @@ header {
   outline: none;
   @include mediaQuery(600px) {
     font-size: 1rem;
-    padding: .5rem 1rem;
   }
 }
 
@@ -410,18 +480,20 @@ main {
 
 .wide {
   @include mediaQuery(600px) {
-    flex-direction: row-reverse;
+    flex-direction: row;
     min-height: 15rem;
-    height: 12.5rem;
+    height: 15rem;
     min-height: 0;
     .thumbnail-wrapper {
-      border-radius: 0 .5rem .5rem 0;
+      border-radius: .5rem 0 0 .5rem;
       height: auto;
-      width: 25%;
+      width: 22rem;
     }
     .recipe-description {
       height: 100%;
-      width: 75%;
+      // width: 75%;
+      flex-grow: 1;
+      padding: 2rem 1.85rem;
     }
   }
 }
@@ -527,6 +599,8 @@ header::-webkit-input-placeholder {
   background: $major;
   box-shadow: 10px 11px 17px -6px rgba(0,0,0,0.32);
   outline: none;
+  max-height: 95vh;
+  overflow-y: scroll;
 }
 
 .modal > div {
@@ -645,4 +719,20 @@ header::-webkit-input-placeholder {
   align-items: center;
   padding-bottom: 1rem;
   border-bottom: 1px solid #cccccc;
+}
+
+.italic {
+  font-style: italic;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.vert-align-center {
+  text-align: center;
+}
+
+.minimal-label {
+  font-size: .7rem;
+  color: grey;
+  align-self: flex-start;
 }

@@ -22,7 +22,7 @@ export default function SearchResult() {
       <p className="head-font mb-1" style={{ fontSize: '2rem' }}>{term} recipes</p>
       <p className="mb-2" style={{ fontSize: '.85rem' }}>search results for {term}</p>
       {searchedRecipes.map(recipe =>
-        <div className="mb-1">
+        <div className="mb-3">
           <RecipeCard recipe={recipe} wide={true} />
         </div>
       )}

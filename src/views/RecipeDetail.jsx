@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FETCH_RECIPE } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
+import UserAva from '../components/UserAva';
 
 export default function RecipeDetail() {
   const { id } = useParams();
@@ -16,23 +17,23 @@ export default function RecipeDetail() {
   if (recipe.User) {
     return (
       // <div className="main-wrapper">
-        <main>
+      <main>
         <div className="detail-page">
           <div className="container-25 mb-2">
             <div className="thumbnail-wrapper square-thumbnail mb-1">
               <img src={recipe.thumbnail} alt="recipe-thumbnail" />
             </div>
             <p className="mb-1" style={{ fontSize: ".9rem", color: 'grey' }}>Recipe by</p>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div className="profile-picture-wrapper mr-half">
-                <img src={recipe.User.profile_picture} alt="ava" />
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Link to={`/user/${recipe.UserId}`} style={{ textDecoration: 'none' }}>
+                <UserAva ava={recipe.User.profile_picture} extraClass=" mr-half" />
+              </Link>
               <p>{`${recipe.User.first_name} ${recipe.User.last_name}`}</p>
             </div>
           </div>
           <div className="container-75">
             <p className="head-font mb-2" style={{ fontSize: '2rem', fontWeight: '600' }}>{recipe.title}</p>
-            <p className="mb-2">{recipe.story}</p>
+            {recipe.story && <p className="mb-2">{recipe.story}</p>}
             <div className="mb-2" style={{ display: 'flex' }}>
               <IoMdStopwatch size={21} className="mr-half" />
               <p className="mr-1">{recipe.cooking_duration}</p>
@@ -56,7 +57,7 @@ export default function RecipeDetail() {
             </ul>
           </div>
         </div>
-        </main>
+      </main>
       // </div>
     )
   }
