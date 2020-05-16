@@ -5,6 +5,7 @@ import { useHistory, Link } from 'react-router-dom';
 // import { AiOutlineMenu } from 'react-icons/ai';
 import AuthModal from './AuthModal';
 import UserAva from './UserAva';
+import logo from '../assets/logopad.png';
 
 export default function Nav() {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ export default function Nav() {
         isLoggedIn
           ?
           <nav>
-            <p >LOGO</p>
+            <img src={logo} alt="logo" style={{ height: '70%', cursor: 'pointer' }} onClick={() => history.push('/')} />
             <ul>
               <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
+              {/* eslint-disable-next-line */}
+              <li><a href="#" onClick={() => history.push('/writerecipe')}>Write Recipe</a></li>
               {/* eslint-disable-next-line */}
               <li><a href="#" onClick={signOut}>Sign Out</a></li>
               <Link to={`/user/${id}`} style={{ textDecoration: 'none' }}>
@@ -40,7 +43,7 @@ export default function Nav() {
           :
           <>
             <nav>
-              <p>LOGO</p>
+              <img src={logo} alt="logo" style={{ height: '70%', cursor: 'pointer' }} onClick={() => history.push('/')} />
               <ul>
                 <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
                 {/* eslint-disable-next-line */}

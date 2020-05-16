@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import noThumbnail from '../assets/nothumbnail.png';
 
 export default function RecipeCard({ recipe, wide }) {
   const history = useHistory();
@@ -10,7 +11,7 @@ export default function RecipeCard({ recipe, wide }) {
     return (
       <div className="recipe-card" onClick={() => history.push(`/detail/${recipe.id}`)}>
         <div className="thumbnail-wrapper">
-          <img src={recipe.thumbnail} alt="thumbnail" />
+          <img src={recipe.thumbnail || noThumbnail} alt="thumbnail" />
         </div>
         <div className="recipe-description">
           <h3 className="mb-1">{recipe.title}</h3>
@@ -29,7 +30,7 @@ export default function RecipeCard({ recipe, wide }) {
     return (
       <div className="recipe-card wide" onClick={() => history.push(`/detail/${recipe.id}`)}>
         <div className="thumbnail-wrapper">
-          <img src={recipe.thumbnail} alt="thumbnail" />
+          <img src={recipe.thumbnail || noThumbnail} alt="thumbnail" />
         </div>
         <div className="recipe-description" style={{ position: 'relative' }}>
           <h3 className="mb-1 head-font">{recipe.title}</h3>

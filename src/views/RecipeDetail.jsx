@@ -5,6 +5,7 @@ import { FETCH_RECIPE, DELETE_RECIPE } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
 import UserAva from '../components/UserAva';
 import Button from '../components/Button';
+import noThumbnail from '../assets/nothumbnail.png';
 
 export default function RecipeDetail() {
   const { id } = useParams();
@@ -33,7 +34,7 @@ export default function RecipeDetail() {
         <div className="detail-page">
           <div className="container-25 mb-2">
             <div className="thumbnail-wrapper square-thumbnail mb-1">
-              <img src={recipe.thumbnail} alt="recipe-thumbnail" />
+              <img src={recipe.thumbnail || noThumbnail} alt="recipe-thumbnail" />
             </div>
             <p className="mb-1" style={{ fontSize: ".9rem", color: 'grey' }}>Recipe by</p>
             <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} className="mb-1">
