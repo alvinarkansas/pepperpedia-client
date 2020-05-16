@@ -39,23 +39,10 @@ nav {
   align-items: center;
   justify-content: space-between;
   ul {
-    // position: absolute;
-    // top: 8rem;
-    // left: 50%;
-    // z-index: -1;
-    // transform: translate(-50%,-250%);
     list-style: none;
-    // width: 100vw;
-    // height: 75vh;
-    // transition: .3s;
     display: flex;
-    // flex-direction: column;
     align-items: center;
-    // justify-content: flex-start;
-    // background: $accent;
-    // padding-bottom: 3rem;
     li {
-      // margin-bottom: 1rem;
       margin-right: 2rem;
       a {
         text-decoration: none;
@@ -68,22 +55,6 @@ nav {
       }
     }
   }
-  // .check-btn {
-  //   color: white;
-  //   position: absolute;
-  //   top: 1.2rem;
-  //   right: 2rem;
-  //   cursor: pointer;
-  // }
-  // #check {
-  //   display: none;
-  // }
-  // #check:checked ~ ul {
-  //   position: absolute;
-  //   top: 7.5rem;
-  //   left: 50%;
-  //   transform: translate(-50%,-50%);
-  // }
   @include mediaQuery(600px) {
     padding: 0 6rem;
     background: $major;
@@ -92,9 +63,6 @@ nav {
     justify-content: space-between;
     height: 5rem;
     ul {
-      // display: flex;
-      // align-items: center;
-      // position: static;
       li {
         a {
           color: black;
@@ -262,7 +230,6 @@ header {
   outline: none;
   @include mediaQuery(600px) {
     font-size: 1.75rem;
-    // padding: .5rem 1rem;
   }
 }
 
@@ -329,8 +296,6 @@ input[type=file] {
   display: flex;
   justify-content: center;
   align-items: center;
-  // height: 2rem;
-  // width: 2.4rem;
   height: 33px;
   width: 33px;
   border-radius: 50%;
@@ -372,6 +337,14 @@ input[type=file] {
   font-size: .8rem;
 }
 
+.crimson {
+  background: #C03737;
+}
+
+.right-align {
+  text-align: right;
+}
+
 .circle-button {
   display: flex;
   align-items: center;
@@ -397,7 +370,6 @@ input[type=file] {
     position: absolute;
     top: 10rem;
     left: -20rem;
-    // left: -25rem;
     img {
       width: 50vw;
     }
@@ -411,7 +383,6 @@ input[type=file] {
     position: absolute;
     top: 11rem;
     right: -20rem;
-    // right: -25rem;
     img {
       width: 50vw;
     }
@@ -571,36 +542,22 @@ form input {
   font-weight: 300;
 }
 
-
-
-
-header::-webkit-input-placeholder {
-  text-align: center;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-  text-align: center;  
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-  text-align: center;  
-}
-
-:-ms-input-placeholder {  
-  text-align: center; 
-}
-
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  padding: 3.5rem;
+  padding: 3rem 1.5rem 2rem 1.5rem;
   background: $major;
   box-shadow: 10px 11px 17px -6px rgba(0,0,0,0.32);
   outline: none;
   max-height: 95vh;
   overflow-y: scroll;
+  width: 90vw;
+  @include mediaQuery(600px) {
+    padding: 3.5rem;
+    width: auto;
+  }
 }
 
 .modal > div {

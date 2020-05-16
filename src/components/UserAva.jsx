@@ -6,7 +6,7 @@ export default function UserAva({ ava, extraClass }) {
 
   return (
     <div className={"profile-picture-wrapper" + (extraClass ? extraClass : "")}>
-      {ava === null || ava.length < 1 ? <p className="ava-letter">{first_name[0]}</p> : <img src={ava} alt="ava" />}
+      {ava === null || ava === '' ? <p className="ava-letter">{first_name[0]}</p> : <img src={ava} alt="ava" />}
     </div>
   )
 }

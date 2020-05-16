@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import UserAva from './UserAva';
+import Button from './Button';
 import { SET_MODAL_EDIT_IS_OPEN, EDIT_PROFILE } from '../store/action';
 import { storage } from '../firebase';
 
@@ -86,8 +87,8 @@ export default function EditModal() {
             <input type="text" placeholder="your current location" className="minimal-input-sm mb-2" value={location} onChange={(e) => setLocation(e.target.value)} />
             <label className="minimal-label">Bio</label>
             <input type="text" placeholder="how would you describe yourself?" className="minimal-input-sm mb-2" value={bio} onChange={(e) => setBio(e.target.value)} />
-            <button type="submit" className="minimal-button mb-1" onClick={saveChanges}>Save Changes</button>
-            <button type="submit" className="minimal-button mb-3" onClick={closeModal}>Cancel</button>
+            <Button submit={true} extraClass="mb-1" md={true} onClick={saveChanges} caption="Save Changes" />
+            <Button submit={true} extraClass="mb-3 crimson" md={true} onClick={closeModal} caption="Cancel" />
           </form>
         </div>
       </Modal>

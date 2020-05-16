@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_IS_LOGGED_IN, SET_MODAL_IS_OPEN } from '../store/action';
+import { SET_IS_LOGGED_IN, SET_MODAL_IS_OPEN, SET_USER_DATA } from '../store/action';
 import { useHistory, Link } from 'react-router-dom';
 // import { AiOutlineMenu } from 'react-icons/ai';
 import AuthModal from './AuthModal';
@@ -17,6 +17,7 @@ export default function Nav() {
   const signOut = () => {
     localStorage.clear();
     dispatch(SET_IS_LOGGED_IN(false));
+    dispatch(SET_USER_DATA({}));
     history.push('/');
   }
 

@@ -1,18 +1,30 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_RECIPE } from '../store/action';
+import { FETCH_RECIPE, DELETE_RECIPE } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
 import UserAva from '../components/UserAva';
+import Button from '../components/Button';
 
 export default function RecipeDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const recipe = useSelector(state => state.recipe);
+  const userId = useSelector(state => state.userData.id);
 
   useEffect(() => {
     dispatch(FETCH_RECIPE(id));
   }, [dispatch, id])
+
+  const deleteRecipe = () => {
+    dispatch(DELETE_RECIPE(id, userId));
+    history.push(`/user/${userId}`);
+  }
+
+  const redirToEditPage = () => {
+    history.push(`/editrecipe/${id}`)
+  }
 
   if (recipe.User) {
     return (
@@ -24,12 +36,18 @@ export default function RecipeDetail() {
               <img src={recipe.thumbnail} alt="recipe-thumbnail" />
             </div>
             <p className="mb-1" style={{ fontSize: ".9rem", color: 'grey' }}>Recipe by</p>
-            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} className="mb-1">
               <Link to={`/user/${recipe.UserId}`} style={{ textDecoration: 'none' }}>
                 <UserAva ava={recipe.User.profile_picture} extraClass=" mr-half" />
               </Link>
               <p>{`${recipe.User.first_name} ${recipe.User.last_name}`}</p>
             </div>
+            {recipe.UserId === userId &&
+              <>
+                <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={deleteRecipe} />
+                <Button caption="Edit Recipe" md={true} extraClass="mb-1" onClick={redirToEditPage} />
+              </>
+            }
           </div>
           <div className="container-75">
             <p className="head-font mb-2" style={{ fontSize: '2rem', fontWeight: '600' }}>{recipe.title}</p>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, FieldArray } from 'formik';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 import { GoPlusSmall } from 'react-icons/go';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { ADD_RECIPE } from '../store/action';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { EDIT_RECIPE, FETCH_RECIPE } from '../store/action';
 import Button from '../components/Button';
 import { storage } from '../firebase';
 import placeholderpp from '../assets/placeholder-pp.png';
@@ -19,14 +19,22 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function WriteRecipe() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const [url, setUrl] = useState('');
+  const recipe = useSelector(state => state.recipe);
+  const userId = useSelector(state => state.userData.id);
 
-  const addRecipe = (values) => {
+  useEffect(() => {
+    dispatch(FETCH_RECIPE(id));
+    setUrl(recipe.thumbnail);
+  }, [])
+
+  const editRecipe = (values) => {
     console.log(values);
     const { title, story, serving, cooking_duration, ingredients, steps } = values;
-    dispatch(ADD_RECIPE({
+    dispatch(EDIT_RECIPE({
       thumbnail: url,
       title,
       story,
@@ -34,8 +42,8 @@ export default function WriteRecipe() {
       cooking_duration,
       ingredients,
       steps
-    }));
-    history.push('/');
+    }, id));
+    history.push(`/user/${userId}`);
   }
 
   const changeThumbnail = e => {
@@ -64,14 +72,14 @@ export default function WriteRecipe() {
     <div className="main-wrapper">
       <Formik
         initialValues={{
-          title: '',
-          story: '',
-          serving: '',
-          cooking_duration: '',
-          ingredients: [''],
-          steps: ['']
+          title: recipe.title,
+          story: recipe.story,
+          serving: recipe.serving,
+          cooking_duration: recipe.cooking_duration,
+          ingredients: recipe.ingredients,
+          steps: recipe.steps
         }}
-        onSubmit={values => addRecipe(values)}
+        onSubmit={values => editRecipe(values)}
         validationSchema={validationSchema}
       >
         {({ values, handleChange, errors, touched }) => (
@@ -103,7 +111,7 @@ export default function WriteRecipe() {
             <FieldArray name="ingredients">
               {({ push, remove }) => (
                 <>
-                  {values.ingredients.map((el, i) =>
+                  {values.ingredients && values.ingredients.map((el, i) =>
                     <div key={i} className="input-container">
                       <input
                         name={`ingredients[${i}]`}
@@ -130,7 +138,7 @@ export default function WriteRecipe() {
             <FieldArray name="steps">
               {({ push, remove }) => (
                 <>
-                  {values.steps.map((el, i) =>
+                  {values.steps && values.steps.map((el, i) =>
                     <div key={i} className="input-container">
                       <div>
                         <div className="step-num"><p>{i + 1}</p></div>
@@ -157,7 +165,7 @@ export default function WriteRecipe() {
             </FieldArray>
 
             <div style={{ textAlign: 'center' }}>
-              <Button caption="Publish" submit={true} />
+              <Button caption="Save Changes" submit={true} />
             </div>
           </Form>
         )}

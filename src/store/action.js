@@ -238,3 +238,42 @@ export const EDIT_PROFILE = (data) => {
             })
     }
 }
+
+export const DELETE_RECIPE = (recipeId, userId) => {
+    return (dispatch) => {
+        axios({
+            method: 'delete',
+            url: `http://localhost:3000/recipes/${recipeId}`,
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+            .then(({ data }) => {
+                dispatch(FETCH_A_USER(userId))
+                console.log('[Successfully Deleted A Recipe > > > ] ', data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const EDIT_RECIPE = (data, recipeId) => {
+    return (dispatch) => {
+        axios({
+            method: 'put',
+            url: `http://localhost:3000/recipes/${recipeId}`,
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data,
+        })
+            .then(({ data }) => {
+                dispatch(FETCH_A_USER(data.UserId));
+                console.log('[ Recipe Updated ] > > > > ', data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
