@@ -45,7 +45,7 @@ export default function Jumbotron() {
   return (
     <header>
       <h1 className="head-font txt-jumbo mb-2">Pepperpedia</h1>
-      <p className="head-font mb-4">Lorem, ipsum dolor.</p>
+      <p className="head-font mb-4">What do you like to cook today?</p>
       <form className="mb-4" onSubmit={submitSearch}>
         <div className="input-container" id="main-search">
           <input

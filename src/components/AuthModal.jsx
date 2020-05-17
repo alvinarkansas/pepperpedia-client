@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import { SET_MODAL_IS_OPEN, SET_MODAL_SIGNUP_IS_OPEN, SIGN_IN, SIGN_UP, SET_AUTH_MESSAGE } from '../store/action';
+import {
+  SET_MODAL_IS_OPEN,
+  SET_MODAL_SIGNUP_IS_OPEN,
+  SIGN_IN, SIGN_UP,
+  SET_AUTH_MESSAGE
+} from '../store/action';
 import Button from './Button';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import GoogleLogin from 'react-google-login';
+import axios from 'axios';
+import glogo from '../assets/glogo.png'
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -27,6 +35,41 @@ export default function AuthModal({ type }) {
   const modalSignUpIsOpen = useSelector(state => state.modalSignUpIsOpen);
   const authMessage = useSelector(state => state.authMessage);
 
+  const client_id = "496829458942-doegmj99js14rjg7hhd43gdul7jg6kii.apps.googleusercontent.com";
+
+  const onSignInSuccess = (googleUser) => {
+    console.log(googleUser);
+    // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+    // See https://developers.google.com/identity/sign-in/web/reference#users
+    // const profile = googleUser.getBasicProfile() // etc etc
+    const token = googleUser.getAuthResponse().id_token;
+    // dispatch(SET_LOADING(true))
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/users/googleSignIn',
+      headers: {
+        token
+      }
+    })
+      .then(result => {
+        console.log(result);
+        // localStorage.setItem("access_token", result.data.access_token);
+        // localStorage.setItem('name', result.data.name);
+        // history.push('/dashboard');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      // .finally(_ => {
+      //   dispatch(SET_LOADING(false))
+      // })
+  }
+
+  const onSignInError = (error) => {
+    // `error` contains any error occurred.
+    console.log('OH NOES', error)
+  }
+
   const signIn = e => {
     e.preventDefault();
     dispatch(SIGN_IN({ email, password }));
@@ -45,8 +88,11 @@ export default function AuthModal({ type }) {
   }
 
   const closeModal = () => {
-    type === 'signin' ? dispatch(SET_MODAL_IS_OPEN(false)) : dispatch(SET_MODAL_SIGNUP_IS_OPEN(false));
-    resetForm();
+    if (type === 'signin') {
+      dispatch(SET_MODAL_IS_OPEN(false));
+    } else if (type === 'signup') {
+      dispatch(SET_MODAL_SIGNUP_IS_OPEN(false));
+    }
     dispatch(SET_AUTH_MESSAGE([]));
   }
 
@@ -72,13 +118,24 @@ export default function AuthModal({ type }) {
         <div>
           <h2 className="head-font mb-2" style={{ textAlign: 'center' }}>We're glad to see you again!</h2>
           {authMessage ? authMessage.map((msg, i) => <p key={i} className="error-text vert-align-center">{msg}</p>) : null}
-          
+
           <form className="center-form" onSubmit={signIn}>
             <label className="minimal-label">Email</label>
             <input type="email" placeholder="email" className="minimal-input-sm mb-2" onChange={(e) => setEmail(e.target.value)} />
             <label className="minimal-label">Password</label>
             <input type="password" placeholder="password" className="minimal-input-sm mb-2" onChange={(e) => setPassword(e.target.value)} />
-            <Button caption="Sign In" submit={true} extraClass="mb-3" />
+            <Button caption="Sign In" submit={true} extraClass="mb-1" />
+            <p className="mb-1">or maybe you prefer</p>
+            <GoogleLogin
+              clientId={client_id}
+              render={renderProps => (
+                <button className="minimal-button mb-3 ghost" onClick={renderProps.onClick} disabled={renderProps.disabled}> <img className="mr-half" src={glogo} width="20px" alt="google logo"/> Google Sign In</button>
+              )}
+              buttonText="or sign in with Google"
+              onSuccess={onSignInSuccess}
+              onFailure={onSignInError}
+              cookiePolicy={'single_host_origin'}
+            />
           </form>
           {/* eslint-disable-next-line */}
           <p style={{ textAlign: 'center' }}>First time using Pepperpedia? Sign up <a href="#" onClick={switchModal}>here</a></p>

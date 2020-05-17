@@ -1,0 +1,17 @@
+.prompt-choices {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  @include mediaQuery(600px) {
+    flex-direction: row;
+  }
+  button:nth-child(1) {
+    margin-bottom: 1rem;
+    @include mediaQuery(600px) {
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+  }
+}

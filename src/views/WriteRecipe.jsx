@@ -77,7 +77,7 @@ export default function WriteRecipe() {
         {({ values, handleChange, errors, touched }) => (
           <Form>
             <h2 className="head-font-thin mb-1">Title</h2>
-            <input name="title" onChange={handleChange} value={values.title} className={"minimal-input-sm mb-2 " + (errors.title ? "has-error" : null)} type="text" placeholder="Your recipe's name" />
+            <input name="title" onChange={handleChange} value={values.title} className={"minimal-input-sm mb-2 " + (errors.title ? "has-error" : null)} type="text" placeholder="Your recipe's name" required />
             {errors.title ? <p className="error-text">{errors.title}</p> : null}
 
             <h2 className="head-font-thin mb-1">Thumbnail</h2>
@@ -113,6 +113,7 @@ export default function WriteRecipe() {
                         onChange={handleChange}
                         value={el}
                         maxLength={255}
+                        required
                       />
                       <div>
                         <IoIosRemoveCircleOutline size={30} onClick={() => remove(i)} />
@@ -143,6 +144,7 @@ export default function WriteRecipe() {
                         onChange={handleChange}
                         value={el}
                         maxLength={255}
+                        required
                       />
                       <div>
                         <IoIosRemoveCircleOutline size={30} onClick={() => remove(i)} />

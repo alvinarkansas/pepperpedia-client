@@ -1,0 +1,25 @@
+#decoration-left {
+  display: none;
+  @include mediaQuery(600px) {
+    display: block;
+    position: absolute;
+    top: 10rem;
+    left: -20rem;
+    img {
+      width: 50vw;
+    }
+  }
+}
+
+#decoration-right {
+  display: none;
+  @include mediaQuery(600px) {
+    display: block;
+    position: absolute;
+    top: 11rem;
+    right: -20rem;
+    img {
+      width: 50vw;
+    }
+  }
+}

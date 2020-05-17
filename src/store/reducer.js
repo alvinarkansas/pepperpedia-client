@@ -5,6 +5,7 @@ const initialState = {
     modalIsOpen: false,
     modalSignUpIsOpen: false,
     modalEditIsOpen: false,
+    promptIsOpen: false,
     recipe: {},
     searchedRecipes: [],
     searchError: '',
@@ -13,6 +14,7 @@ const initialState = {
     notifOpen: false,
     notifMessage: '',
     authMessage: [],
+    recipesLoading: false,
 }
 
 export default function reducer(state = initialState, action) {
@@ -47,6 +49,9 @@ export default function reducer(state = initialState, action) {
     if (action.type === 'SET_MODAL_EDIT_IS_OPEN') {
         return { ...state, modalEditIsOpen: action.payload }
     }
+    if (action.type === 'SET_PROMPT_IS_OPEN') {
+        return { ...state, promptIsOpen: action.payload }
+    }
     if (action.type === 'SET_RECIPE') {
         return { ...state, recipe: action.payload }
     }
@@ -70,6 +75,9 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_AUTH_MESSAGE') {
         return { ...state, authMessage: action.payload }
+    }
+    if (action.type === 'SET_RECIPES_LOADING') {
+        return { ...state, recipesLoading: action.payload }
     }
     return state
 } 

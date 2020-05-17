@@ -1,0 +1,59 @@
+.minimal-button {
+  border: none;
+  border-radius: 2rem;
+  padding: .9rem 5rem;
+  background: $accent;
+  color: $major;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+  &:hover {
+    transform: scale(1.1);
+  }
+  @include mediaQuery(600px) {
+    font-size: 1.1rem;
+  }
+}
+
+.minimal-button-md {
+  padding: .9rem 4rem;
+  font-size: .8rem;
+}
+
+.crimson {
+  background: #C03737;
+}
+
+.ghost {
+  background-color: $major;
+  color: black;
+  box-shadow: 0px 0px 22px 2px rgba(158,158,158,0.59);
+  padding: .9rem 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.circle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  padding: .1rem;
+  border-radius: 50%;
+}
+
+.disabled-button {
+  background: grey;
+  cursor: default;
+  &:hover {
+    transform: none;
+  }
+}

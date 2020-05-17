@@ -1,0 +1,90 @@
+.profile-picture-wrapper {
+  overflow: hidden;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: $accent;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  &::after {
+    content: "";
+    background: black;
+    height: 2.5rem;
+    width: 2.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s ease;
+  }
+  &:hover::after {
+    opacity: .5;
+  }
+}
+
+.bigger {
+  width: 6rem;
+  height: 6rem;
+  .ava-letter {
+    font-size: 2.1rem;
+  }
+  &:hover::after {
+    opacity: 0;
+  }
+}
+
+.ava-input {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: .3s;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, .7s);
+  }
+  &::before {
+    content: "change photo";
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: .85rem;
+    text-align: center;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s ease;
+  }
+  &:hover::before {
+    opacity: .5;
+  }
+}
+
+.pencil-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 1;
+}
+
+.ava-letter {
+  color: $major;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_IS_LOGGED_IN, SET_MODAL_IS_OPEN, SET_USER_DATA } from '../store/action';
+import { SET_IS_LOGGED_IN, SET_MODAL_IS_OPEN, SET_USER_DATA, SET_PROMPT_IS_OPEN } from '../store/action';
 import { useHistory, Link } from 'react-router-dom';
-// import { AiOutlineMenu } from 'react-icons/ai';
 import AuthModal from './AuthModal';
 import UserAva from './UserAva';
+import Prompt from './Prompt';
 import logo from '../assets/logopad.png';
 
 export default function Nav() {
@@ -14,6 +14,10 @@ export default function Nav() {
   const isLoggedIn = useSelector(state => state.isLoggedIn);
   const profile_picture = useSelector(state => state.userData.profile_picture);
   const id = useSelector(state => state.userData.id);
+
+  const openPrompt = () => {
+    dispatch(SET_PROMPT_IS_OPEN(true));
+  }
 
   const signOut = () => {
     localStorage.clear();
@@ -34,7 +38,7 @@ export default function Nav() {
               {/* eslint-disable-next-line */}
               <li><a href="#" onClick={() => history.push('/writerecipe')}>Write Recipe</a></li>
               {/* eslint-disable-next-line */}
-              <li><a href="#" onClick={signOut}>Sign Out</a></li>
+              <li><a href="#" onClick={openPrompt}>Sign Out</a></li>
               <Link to={`/user/${id}`} style={{ textDecoration: 'none' }}>
                 <UserAva ava={profile_picture} />
               </Link>
@@ -54,6 +58,7 @@ export default function Nav() {
       }
       <AuthModal type="signup" />
       <AuthModal type="signin" />
+      <Prompt title="Are you sure you want to sign out?" accept={signOut} />
     </>
   )
 }

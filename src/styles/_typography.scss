@@ -1,0 +1,21 @@
+.head-font {
+  font-family: $head-font;
+}
+
+.head-font-thin {
+  font-family: $head-font;
+  font-weight: 300;
+}
+
+.txt-jumbo {
+  font-size: 3rem;
+  @include mediaQuery(600px) {
+    font-size: 5rem;
+  }
+}
+
+.italic {
+  font-style: italic;
+  font-size: .9rem;
+  text-align: center;
+}

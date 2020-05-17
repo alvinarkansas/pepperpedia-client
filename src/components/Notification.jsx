@@ -12,7 +12,7 @@ export default function Notification({ message, open }) {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => dispatch(SET_NOTIF_OPEN(false)), 2000);
+    const timer = setTimeout(() => dispatch(SET_NOTIF_OPEN(false)), 5000);
     return () => clearTimeout(timer);
   }, []);
 

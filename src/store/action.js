@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import store from './index';
 
 export const SET_RECIPES = (data) => {
     return { type: 'SET_RECIPES', payload: data }
@@ -23,6 +22,10 @@ export const SET_MODAL_SIGNUP_IS_OPEN = (data) => {
 
 export const SET_MODAL_EDIT_IS_OPEN = (data) => {
     return { type: 'SET_MODAL_EDIT_IS_OPEN', payload: data }
+}
+
+export const SET_PROMPT_IS_OPEN = (data) => {
+    return { type: 'SET_PROMPT_IS_OPEN', payload: data }
 }
 
 export const SET_RECIPE = (data) => {
@@ -59,6 +62,10 @@ export const SET_NOTIF_MESSAGE = (data) => {
 
 export const SET_AUTH_MESSAGE = (data) => {
     return { type: 'SET_AUTH_MESSAGE', payload: data }
+}
+
+export const SET_RECIPES_LOADING = (data) => {
+    return { type: 'SET_RECIPES_LOADING', payload: data }
 }
 
 export const FETCH_RECIPES = () => {
@@ -101,6 +108,7 @@ export const ADD_RECIPE = (data) => {
 
 export const FETCH_RECIPE = (id) => {
     return (dispatch) => {
+        dispatch(SET_RECIPES_LOADING(true));
         axios({
             method: 'get',
             url: `http://localhost:3000/recipes/${id}`
@@ -111,6 +119,9 @@ export const FETCH_RECIPE = (id) => {
             })
             .catch(err => {
                 console.log(err);
+            })
+            .finally(_ => {
+                dispatch(SET_RECIPES_LOADING(false));
             })
     }
 }
@@ -213,7 +224,7 @@ export const SIGN_UP = (data) => {
                 } else {
                     dispatch(SET_AUTH_MESSAGE([err.response.data.message]));
                 }
-                
+
                 // err.response.data.message = ['first name cant be empty, lastname cant be empty, invalid email format, password should at leas have 6 chars]
             })
     }

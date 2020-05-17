@@ -15,14 +15,20 @@ export default function RecipeCard({ recipe, wide }) {
         </div>
         <div className="recipe-description">
           <h3 className="mb-1">{recipe.title}</h3>
-          <div>
-            {recipe.story.length > limit
-              ?
-              <p>{`${recipe.story.substr(0, limit)} [ . . . ]`}</p>
-              :
-              <p>{recipe.story}</p>
-            }
-          </div>
+          {recipe.story === "" ?
+            <div>
+              <p>No description provided</p>
+            </div>
+            :
+            <div>
+              {recipe.story.length > limit
+                ?
+                <p>{`${recipe.story.substr(0, limit)} [ . . . ]`}</p>
+                :
+                <p>{recipe.story}</p>
+              }
+            </div>
+          }
         </div>
       </div>
     )

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_RECIPE, DELETE_RECIPE } from '../store/action';
+import { FETCH_RECIPE, DELETE_RECIPE, SET_PROMPT_IS_OPEN } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
 import UserAva from '../components/UserAva';
 import Button from '../components/Button';
+import Prompt from '../components/Prompt';
 import noThumbnail from '../assets/nothumbnail.png';
 
 export default function RecipeDetail() {
@@ -27,9 +28,12 @@ export default function RecipeDetail() {
     history.push(`/editrecipe/${id}`)
   }
 
+  const openPrompt = () => {
+    dispatch(SET_PROMPT_IS_OPEN(true));
+  }
+
   if (recipe.User) {
     return (
-      // <div className="main-wrapper">
       <main>
         <div className="detail-page">
           <div className="container-25 mb-2">
@@ -45,7 +49,7 @@ export default function RecipeDetail() {
             </div>
             {recipe.UserId === userId &&
               <>
-                <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={deleteRecipe} />
+                <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={openPrompt} />
                 <Button caption="Edit Recipe" md={true} extraClass="mb-1" onClick={redirToEditPage} />
               </>
             }
@@ -54,10 +58,18 @@ export default function RecipeDetail() {
             <p className="head-font mb-2" style={{ fontSize: '2rem', fontWeight: '600' }}>{recipe.title}</p>
             {recipe.story && <p className="mb-2">{recipe.story}</p>}
             <div className="mb-2" style={{ display: 'flex' }}>
-              <IoMdStopwatch size={21} className="mr-half" />
-              <p className="mr-1">{recipe.cooking_duration}</p>
-              <IoMdRestaurant size={21} className="mr-half" />
-              <p>{recipe.serving}</p>
+              {recipe.cooking_duration &&
+                <>
+                  <IoMdStopwatch size={21} className="mr-half" />
+                  <p className="mr-1">{recipe.cooking_duration}</p>
+                </>
+              }
+              {recipe.serving &&
+                <>
+                  <IoMdRestaurant size={21} className="mr-half" />
+                  <p>{recipe.serving}</p>
+                </>
+              }
             </div>
             <p className="head-font-thin subtitle-underline mb-1" style={{ fontSize: '1.25rem' }}>Ingredients</p>
             <ul className="minimal-ul mb-2">
@@ -76,8 +88,8 @@ export default function RecipeDetail() {
             </ul>
           </div>
         </div>
+        <Prompt title="Delete this recipe?" accept={deleteRecipe} />
       </main>
-      // </div>
     )
   }
   return null;

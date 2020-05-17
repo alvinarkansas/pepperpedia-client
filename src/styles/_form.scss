@@ -1,0 +1,140 @@
+.input-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  div:nth-child(2) {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: $major;
+    height: 80%;
+    padding: .5rem 0 .5rem .5rem;
+  }
+}
+
+.minimal-input {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  padding: .5rem .75rem;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+  @include mediaQuery(600px) {
+    font-size: 1.75rem;
+  }
+}
+
+.minimal-input-sm {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: .8rem;
+  padding: .5rem .75rem;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+  @include mediaQuery(600px) {
+    font-size: 1rem;
+  }
+}
+
+input[type=file] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.minimal-input-file {
+  display: inline-block;
+  padding: .9rem 4rem;
+  border-radius: 2rem;
+  background: $accent;
+  color: $major;
+  cursor: pointer;
+  transition: .3s;
+  text-align: center;
+  &:hover {
+    transform: scale(1.1);
+  }
+  label {
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 600;
+    font-size: .8rem;
+    cursor: pointer;
+    user-select: none;
+    margin-top: -10px;
+  }
+}
+
+.input-upload-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  div {
+    margin-bottom: 1rem;
+  }
+  @include mediaQuery(600px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.step-num {
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 33px;
+  width: 33px;
+  border-radius: 50%;
+  color: $major;
+  padding: .1rem;
+  @include mediaQuery(600px) {
+    width: 33px;
+  }
+}
+
+.has-error {
+  border: 1px solid #d40d0d;
+  outline: none;
+  box-shadow: 0px 0px 6px 2px rgba(191,19,19,0.8);
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: inherit;
+  padding: .5rem .75rem;
+  font-size: .8rem;
+  font-weight: 300;
+  height: 6.5rem;
+  outline: none;
+  resize: none;
+  @include mediaQuery(600px) {
+    font-size: 1rem;
+  }
+}
+
+.error-text {
+  margin-top: -1.5rem;
+  color: #cf0909;
+  font-size: .75rem;
+  margin-bottom: 2rem;
+}
+
+form input {
+  font-weight: 300;
+}
+
+.minimal-label {
+  font-size: .7rem;
+  color: grey;
+  align-self: flex-start;
+}
