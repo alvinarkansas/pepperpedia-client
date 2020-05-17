@@ -49,6 +49,18 @@ export const EDIT_USER_DATA = (data) => {
     return { type: 'EDIT_USER_DATA', payload: data }
 }
 
+export const SET_NOTIF_OPEN = (data) => {
+    return { type: 'SET_NOTIF_OPEN', payload: data }
+}
+
+export const SET_NOTIF_MESSAGE = (data) => {
+    return { type: 'SET_NOTIF_MESSAGE', payload: data }
+}
+
+export const SET_AUTH_MESSAGE = (data) => {
+    return { type: 'SET_AUTH_MESSAGE', payload: data }
+}
+
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
         axios({
@@ -77,7 +89,9 @@ export const ADD_RECIPE = (data) => {
         })
             .then(({ data }) => {
                 console.log('successfully wrote new recipe > > > ', data);
-                dispatch(FETCH_RECIPES())
+                dispatch(FETCH_RECIPES());
+                dispatch(SET_NOTIF_OPEN(true));
+                dispatch(SET_NOTIF_MESSAGE('Nice, your recipe is published'));
             })
             .catch(err => {
                 console.log(err.response);
@@ -161,6 +175,8 @@ export const SIGN_IN = (data) => {
             })
             .catch(err => {
                 console.log(err.response);
+                dispatch(SET_AUTH_MESSAGE([err.response.data]));
+                // err.response.data = Invalid Email/Password
             })
     }
 }
@@ -192,6 +208,13 @@ export const SIGN_UP = (data) => {
             })
             .catch(err => {
                 console.log(err.response);
+                if (typeof err.response.data.message === 'object') {
+                    dispatch(SET_AUTH_MESSAGE(err.response.data.message));
+                } else {
+                    dispatch(SET_AUTH_MESSAGE([err.response.data.message]));
+                }
+                
+                // err.response.data.message = ['first name cant be empty, lastname cant be empty, invalid email format, password should at leas have 6 chars]
             })
     }
 }
@@ -232,6 +255,8 @@ export const EDIT_PROFILE = (data) => {
                     location: data.location
                 }))
                 console.log('[ Profile Updated ] > > > > ', data);
+                dispatch(SET_NOTIF_OPEN(true));
+                dispatch(SET_NOTIF_MESSAGE('Changes saved'));
             })
             .catch(err => {
                 console.log(err);
@@ -251,6 +276,8 @@ export const DELETE_RECIPE = (recipeId, userId) => {
             .then(({ data }) => {
                 dispatch(FETCH_A_USER(userId))
                 console.log('[Successfully Deleted A Recipe > > > ] ', data);
+                dispatch(SET_NOTIF_OPEN(true));
+                dispatch(SET_NOTIF_MESSAGE('Recipe deleted'));
             })
             .catch(err => {
                 console.log(err);
@@ -271,6 +298,8 @@ export const EDIT_RECIPE = (data, recipeId) => {
             .then(({ data }) => {
                 dispatch(FETCH_A_USER(data.UserId));
                 console.log('[ Recipe Updated ] > > > > ', data);
+                dispatch(SET_NOTIF_OPEN(true));
+                dispatch(SET_NOTIF_MESSAGE('Changes saved'));
             })
             .catch(err => {
                 console.log(err);

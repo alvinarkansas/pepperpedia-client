@@ -10,6 +10,9 @@ const initialState = {
     searchError: '',
     userRecipes: [],
     aUser: {},
+    notifOpen: false,
+    notifMessage: '',
+    authMessage: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -58,6 +61,15 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_A_USER') {
         return { ...state, aUser: action.payload }
+    }
+    if (action.type === 'SET_NOTIF_OPEN') {
+        return { ...state, notifOpen: action.payload }
+    }
+    if (action.type === 'SET_NOTIF_MESSAGE') {
+        return { ...state, notifMessage: action.payload }
+    }
+    if (action.type === 'SET_AUTH_MESSAGE') {
+        return { ...state, authMessage: action.payload }
     }
     return state
 } 

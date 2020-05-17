@@ -693,3 +693,37 @@ form input {
   color: grey;
   align-self: flex-start;
 }
+
+.error-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem 1rem 1rem 1rem;
+  img {
+    margin-bottom: 2rem;
+    @include mediaQuery(600px) {
+      margin-right: 2rem;
+    }
+  }
+}
+
+.notification {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem .8rem 2rem;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: $accent;
+  transition: .3s;
+  div {
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

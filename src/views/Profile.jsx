@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { GoPencil } from 'react-icons/go';
 import { MdLocationOn } from 'react-icons/md';
 import { IconContext } from "react-icons";
+import Notification from '../components/Notification';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ export default function Profile() {
 
   const userData = useSelector(state => state.userData);
   const aUser = useSelector(state => state.aUser);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const notifOpen = useSelector(state => state.notifOpen);
+  const notifMessage = useSelector(state => state.notifMessage);
   const { user, userRecipe } = aUser;
 
   useEffect(() => {
@@ -28,9 +32,13 @@ export default function Profile() {
         <div className="profile-details mb-2">
           <UserAva ava={user.profile_picture} extraClass=" bigger mb-2" />
           <p style={{ marginBottom: '.5rem', position: 'relative', fontWeight: '500', fontSize: '1.1rem' }}>{`${user.first_name} ${user.last_name}`}
-            <span style={{ position: 'absolute', top: 0, right: '-2rem', cursor: 'pointer' }} onClick={() => dispatch(SET_MODAL_EDIT_IS_OPEN(true))}>
-              <GoPencil size={18} color="grey" />
-            </span>
+            {isLoggedIn && user.id === userData.id ?
+              <span style={{ position: 'absolute', top: 0, right: '-2rem', cursor: 'pointer' }} onClick={() => dispatch(SET_MODAL_EDIT_IS_OPEN(true))}>
+                <GoPencil size={18} color="grey" />
+              </span>
+              :
+              null
+            }
           </p>
           {user.location &&
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem' }}>
@@ -63,6 +71,7 @@ export default function Profile() {
         </>
       }
       <EditModal />
+      <Notification message={notifMessage} open={notifOpen} />
     </div>
   )
 }
