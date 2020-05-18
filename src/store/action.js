@@ -72,11 +72,14 @@ export const SET_RECIPES_LOADING = (data) => {
     return { type: 'SET_RECIPES_LOADING', payload: data }
 }
 
+// const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://secret-plains-42994.herokuapp.com';
+
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
         axios({
             method: 'get',
-            url: 'http://localhost:3000/recipes'
+            url: `${baseUrl}/recipes`
         })
             .then(({ data }) => {
                 dispatch(SET_RECIPES(data));
@@ -92,7 +95,7 @@ export const ADD_RECIPE = (data) => {
     return (dispatch) => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/recipes',
+            url: `${baseUrl}/recipes`,
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -115,7 +118,7 @@ export const FETCH_RECIPE = (id) => {
         dispatch(SET_RECIPES_LOADING(true));
         axios({
             method: 'get',
-            url: `http://localhost:3000/recipes/${id}`
+            url: `${baseUrl}/recipes/${id}`
         })
             .then(({ data }) => {
                 dispatch(SET_RECIPE(data));
@@ -134,7 +137,7 @@ export const SEARCH_RECIPE = (term) => {
     return (dispatch) => {
         axios({
             method: 'get',
-            url: `http://localhost:3000/recipes/search?term=${term}`
+            url: `${baseUrl}/recipes/search?term=${term}`
         })
             .then(({ data }) => {
                 dispatch(SET_SEARCHED_RECIPES(data));
@@ -151,7 +154,7 @@ export const FETCH_USER_RECIPE = (userId) => {
     return (dispatch) => {
         axios({
             method: 'get',
-            url: `http://localhost:3000/recipes/by/${userId}`
+            url: `${baseUrl}/recipes/by/${userId}`
         })
             .then(({ data }) => {
                 dispatch(SET_USER_RECIPES(data));
@@ -165,7 +168,7 @@ export const FETCH_USER_RECIPE = (userId) => {
 
 export const SIGN_IN = (data) => {
     return (dispatch) => {
-        axios.post('http://localhost:3000/users/signin', data)
+        axios.post(`${baseUrl}/users/signin`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
                 console.log(data);
@@ -198,7 +201,7 @@ export const SIGN_IN = (data) => {
 
 export const SIGN_UP = (data) => {
     return (dispatch) => {
-        axios.post('http://localhost:3000/users/signup', data)
+        axios.post(`${baseUrl}/users/signup`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
                 console.log(data);
@@ -238,7 +241,7 @@ export const FETCH_A_USER = (userId) => {
     return (dispatch) => {
         axios({
             method: 'get',
-            url: `http://localhost:3000/users/${userId}`
+            url: `${baseUrl}/users/${userId}`
         })
             .then(({ data }) => {
                 dispatch(SET_A_USER(data));
@@ -254,7 +257,7 @@ export const EDIT_PROFILE = (data) => {
     return (dispatch) => {
         axios({
             method: 'put',
-            url: 'http://localhost:3000/users',
+            url: `${baseUrl}/users`,
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -283,7 +286,7 @@ export const DELETE_RECIPE = (recipeId, userId) => {
     return (dispatch) => {
         axios({
             method: 'delete',
-            url: `http://localhost:3000/recipes/${recipeId}`,
+            url: `${baseUrl}/recipes/${recipeId}`,
             headers: {
                 token: localStorage.getItem('token')
             }
@@ -304,7 +307,7 @@ export const EDIT_RECIPE = (data, recipeId) => {
     return (dispatch) => {
         axios({
             method: 'put',
-            url: `http://localhost:3000/recipes/${recipeId}`,
+            url: `${baseUrl}/recipes/${recipeId}`,
             headers: {
                 token: localStorage.getItem('token')
             },
