@@ -77,6 +77,7 @@ const baseUrl = 'https://secret-plains-42994.herokuapp.com';
 
 export const FETCH_RECIPES = () => {
     return (dispatch) => {
+        dispatch(SET_RECIPES_LOADING(true));
         axios({
             method: 'get',
             url: `${baseUrl}/recipes`
@@ -87,6 +88,9 @@ export const FETCH_RECIPES = () => {
             })
             .catch(err => {
                 console.log(err);
+            })
+            .finally(_ => {
+                dispatch(SET_RECIPES_LOADING(false));
             })
     }
 }

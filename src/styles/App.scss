@@ -201,6 +201,12 @@ main {
   }
 }
 
+.card-profile-container {
+  @include mediaQuery(600px) {
+    padding: 0 4rem;
+  }
+}
+
 @import "./notification";
 @import "./prompt";
 @import "./scroll";

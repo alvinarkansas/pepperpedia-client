@@ -56,6 +56,7 @@ export default function Nav() {
           :
           <div className="navbar">
             <img src={logo} alt="logo" style={{ height: '50px', cursor: 'pointer' }} onClick={() => history.push('/')} />
+            <input type="checkbox" className="nav-toggle" id="nav-toggle" />
             <nav>
               <ul>
                 <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
@@ -63,6 +64,9 @@ export default function Nav() {
                 <li><a href="#" onClick={() => dispatch(SET_MODAL_IS_OPEN(true))}>Sign In</a></li>
               </ul>
             </nav>
+            <label htmlFor="nav-toggle" className="nav-toggle-label">
+              <AiOutlineMenu size={20} color="#000" />
+            </label>
           </div>
       }
       <AuthModal type="signup" />

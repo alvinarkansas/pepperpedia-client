@@ -63,7 +63,7 @@ export default function Profile() {
               `${userRecipe.length} Recipes`
             }
           </p>
-          <div style={{ paddingRight: '4rem', paddingLeft: '4rem' }}>
+          <div className="card-profile-container">
             {userRecipe.length !== 0 ? userRecipe.map(recipe =>
               <div key={recipe.id} className="mb-2">
                 <RecipeCard recipe={recipe} wide={true} />

@@ -24,7 +24,7 @@ export default function EditModal() {
     setLocation(userData.location);
     setBio(userData.bio);
     setAva(userData.profile_picture);
-  }, [])
+  }, [userData.first_name, userData.last_name, userData.location, userData.bio, userData.profile_picture])
 
   const closeModal = () => {
     dispatch(SET_MODAL_EDIT_IS_OPEN(false));
