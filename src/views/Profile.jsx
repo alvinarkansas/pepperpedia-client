@@ -4,14 +4,16 @@ import { FETCH_A_USER, SET_MODAL_EDIT_IS_OPEN } from '../store/action';
 import RecipeCard from '../components/RecipeCard';
 import UserAva from '../components/UserAva';
 import EditModal from '../components/EditModal';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { GoPencil } from 'react-icons/go';
 import { MdLocationOn } from 'react-icons/md';
 import { IconContext } from "react-icons";
 import Notification from '../components/Notification';
+import Button from '../components/Button';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams();
 
   const userData = useSelector(state => state.userData);
@@ -62,11 +64,21 @@ export default function Profile() {
             }
           </p>
           <div style={{ paddingRight: '4rem', paddingLeft: '4rem' }}>
-            {userRecipe.map(recipe =>
+            {userRecipe.length !== 0 ? userRecipe.map(recipe =>
               <div key={recipe.id} className="mb-2">
                 <RecipeCard recipe={recipe} wide={true} />
               </div>
-            )}
+            )
+              :
+              (id == userData.id ?
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <p style={{ textAlign: 'center', fontSize: '.8rem', marginBottom: '1rem' }}>You have no recipe</p>
+                  <Button caption="Write your first recipe" md={true} onClick={() => history.push('/writerecipe')} />
+                </div>
+                :
+                <p style={{ textAlign: 'center', fontSize: '.8rem' }}>{user.first_name} has no recipe</p>
+              )
+            }
           </div>
         </>
       }

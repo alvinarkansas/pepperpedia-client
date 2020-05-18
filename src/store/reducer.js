@@ -6,6 +6,7 @@ const initialState = {
     modalSignUpIsOpen: false,
     modalEditIsOpen: false,
     promptIsOpen: false,
+    delPromptIsOpen: false,
     recipe: {},
     searchedRecipes: [],
     searchError: '',
@@ -51,6 +52,9 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_PROMPT_IS_OPEN') {
         return { ...state, promptIsOpen: action.payload }
+    }
+    if (action.type === 'SET_DEL_PROMPT_IS_OPEN') {
+        return { ...state, delPromptIsOpen: action.payload }
     }
     if (action.type === 'SET_RECIPE') {
         return { ...state, recipe: action.payload }

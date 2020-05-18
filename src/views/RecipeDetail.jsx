@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_RECIPE, DELETE_RECIPE, SET_PROMPT_IS_OPEN } from '../store/action';
+import { FETCH_RECIPE, DELETE_RECIPE, SET_DEL_PROMPT_IS_OPEN, SET_IS_LOGGED_IN, SET_USER_DATA } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
 import UserAva from '../components/UserAva';
 import Button from '../components/Button';
 import Prompt from '../components/Prompt';
+import DelPrompt from '../components/DelPrompt';
 import noThumbnail from '../assets/nothumbnail.png';
 
 export default function RecipeDetail() {
@@ -28,8 +29,15 @@ export default function RecipeDetail() {
     history.push(`/editrecipe/${id}`)
   }
 
-  const openPrompt = () => {
-    dispatch(SET_PROMPT_IS_OPEN(true));
+  const openDelPrompt = () => {
+    dispatch(SET_DEL_PROMPT_IS_OPEN(true));
+  }
+
+  const signOut = () => {
+    localStorage.clear();
+    dispatch(SET_IS_LOGGED_IN(false));
+    dispatch(SET_USER_DATA({}));
+    history.push('/');
   }
 
   if (recipe.User) {
@@ -49,7 +57,7 @@ export default function RecipeDetail() {
             </div>
             {recipe.UserId === userId &&
               <>
-                <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={openPrompt} />
+                <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={openDelPrompt} />
                 <Button caption="Edit Recipe" md={true} extraClass="mb-1" onClick={redirToEditPage} />
               </>
             }
@@ -88,7 +96,8 @@ export default function RecipeDetail() {
             </ul>
           </div>
         </div>
-        <Prompt title="Delete this recipe?" accept={deleteRecipe} />
+        <DelPrompt title="Delete this recipe?" accept={deleteRecipe} />
+        <Prompt title="Are you sure you want to sign out?" accept={signOut} />
       </main>
     )
   }

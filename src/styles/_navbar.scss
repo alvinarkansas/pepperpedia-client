@@ -1,0 +1,93 @@
+.navbar {
+    background: $major;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    @include mediaQuery(700px) {
+        display: flex;
+        padding: .5rem 5rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+nav {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    background: rgba($color: $accent, $alpha: .85);
+    width: 100%;
+    transform-origin: top;
+    transform: scale(1, 0);
+    transition: transform .3s ease-in-out;
+    ul {
+        padding-top: 2rem;
+        list-style: none;
+        li {
+            margin-bottom: 2rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            a {
+                text-decoration: none;
+                color: black;
+                text-transform: uppercase;
+                &:hover {
+                    color: $accent;
+                }
+                opacity: 0;
+                transition: opacity 150ms ease-in-out;
+            }
+        }
+    }
+    @include mediaQuery(700px) {
+        all: unset;
+        position: relative;
+        background: $major;
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0;
+            li {
+                margin-left: 2rem;
+                margin-bottom: 0;
+                margin-right: 0;
+                a {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.nav-toggle:checked ~ nav {
+    transform: scale(1, 1);
+}
+
+.nav-toggle:checked ~ nav a {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    cursor: pointer;
+    @include mediaQuery(700px) {
+        display: none;
+    }
+}

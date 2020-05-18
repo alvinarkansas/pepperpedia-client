@@ -6,6 +6,7 @@ import AuthModal from './AuthModal';
 import UserAva from './UserAva';
 import Prompt from './Prompt';
 import logo from '../assets/logopad.png';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 export default function Nav() {
   const dispatch = useDispatch();
@@ -31,30 +32,38 @@ export default function Nav() {
       {
         isLoggedIn
           ?
-          <nav>
-            <img src={logo} alt="logo" style={{ height: '70%', cursor: 'pointer' }} onClick={() => history.push('/')} />
-            <ul>
-              <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
-              {/* eslint-disable-next-line */}
-              <li><a href="#" onClick={() => history.push('/writerecipe')}>Write Recipe</a></li>
-              {/* eslint-disable-next-line */}
-              <li><a href="#" onClick={openPrompt}>Sign Out</a></li>
-              <Link to={`/user/${id}`} style={{ textDecoration: 'none' }}>
-                <UserAva ava={profile_picture} />
-              </Link>
-            </ul>
-          </nav>
-          :
-          <>
+          <div className="navbar">
+            <img src={logo} alt="logo" style={{ height: '50px', cursor: 'pointer' }} onClick={() => history.push('/')} />
+            <input type="checkbox" className="nav-toggle" id="nav-toggle" />
             <nav>
-              <img src={logo} alt="logo" style={{ height: '70%', cursor: 'pointer' }} onClick={() => history.push('/')} />
+              <ul>
+                <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
+                {/* eslint-disable-next-line */}
+                <li><a href="#" onClick={() => history.push('/writerecipe')}>Write Recipe</a></li>
+                {/* eslint-disable-next-line */}
+                <li><a href="#" onClick={openPrompt}>Sign Out</a></li>
+                <li>
+                  <Link to={`/user/${id}`} style={{ textDecoration: 'none' }}>
+                    <UserAva ava={profile_picture} />
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <label htmlFor="nav-toggle" className="nav-toggle-label">
+              <AiOutlineMenu size={20} color="#000" />
+            </label>
+          </div>
+          :
+          <div className="navbar">
+            <img src={logo} alt="logo" style={{ height: '50px', cursor: 'pointer' }} onClick={() => history.push('/')} />
+            <nav>
               <ul>
                 <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
                 {/* eslint-disable-next-line */}
                 <li><a href="#" onClick={() => dispatch(SET_MODAL_IS_OPEN(true))}>Sign In</a></li>
               </ul>
             </nav>
-          </>
+          </div>
       }
       <AuthModal type="signup" />
       <AuthModal type="signin" />

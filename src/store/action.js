@@ -28,6 +28,10 @@ export const SET_PROMPT_IS_OPEN = (data) => {
     return { type: 'SET_PROMPT_IS_OPEN', payload: data }
 }
 
+export const SET_DEL_PROMPT_IS_OPEN = (data) => {
+    return { type: 'SET_DEL_PROMPT_IS_OPEN', payload: data }
+}
+
 export const SET_RECIPE = (data) => {
     return { type: 'SET_RECIPE', payload: data }
 }

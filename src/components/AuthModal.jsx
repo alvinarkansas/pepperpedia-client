@@ -10,9 +10,9 @@ import {
 import Button from './Button';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import GoogleLogin from 'react-google-login';
-import axios from 'axios';
-import glogo from '../assets/glogo.png'
+// import GoogleLogin from 'react-google-login';
+// import axios from 'axios';
+// import glogo from '../assets/glogo.png'
 
 const validationSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -35,40 +35,38 @@ export default function AuthModal({ type }) {
   const modalSignUpIsOpen = useSelector(state => state.modalSignUpIsOpen);
   const authMessage = useSelector(state => state.authMessage);
 
-  const client_id = "496829458942-doegmj99js14rjg7hhd43gdul7jg6kii.apps.googleusercontent.com";
+  // const onSignInSuccess = (googleUser) => {
+  //   console.log(googleUser);
+  //   // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+  //   // See https://developers.google.com/identity/sign-in/web/reference#users
+  //   // const profile = googleUser.getBasicProfile() // etc etc
+  //   const token = googleUser.getAuthResponse().id_token;
+  //   // dispatch(SET_LOADING(true))
+  //   axios({
+  //     method: 'post',
+  //     url: 'http://localhost:3000/users/googleSignIn',
+  //     headers: {
+  //       token
+  //     }
+  //   })
+  //     .then(result => {
+  //       console.log(result);
+  //       // localStorage.setItem("access_token", result.data.access_token);
+  //       // localStorage.setItem('name', result.data.name);
+  //       // history.push('/dashboard');
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  //     // .finally(_ => {
+  //     //   dispatch(SET_LOADING(false))
+  //     // })
+  // }
 
-  const onSignInSuccess = (googleUser) => {
-    console.log(googleUser);
-    // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-    // See https://developers.google.com/identity/sign-in/web/reference#users
-    // const profile = googleUser.getBasicProfile() // etc etc
-    const token = googleUser.getAuthResponse().id_token;
-    // dispatch(SET_LOADING(true))
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/users/googleSignIn',
-      headers: {
-        token
-      }
-    })
-      .then(result => {
-        console.log(result);
-        // localStorage.setItem("access_token", result.data.access_token);
-        // localStorage.setItem('name', result.data.name);
-        // history.push('/dashboard');
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      // .finally(_ => {
-      //   dispatch(SET_LOADING(false))
-      // })
-  }
-
-  const onSignInError = (error) => {
-    // `error` contains any error occurred.
-    console.log('OH NOES', error)
-  }
+  // const onSignInError = (error) => {
+  //   // `error` contains any error occurred.
+  //   console.log('OH NOES', error)
+  // }
 
   const signIn = e => {
     e.preventDefault();
@@ -124,8 +122,8 @@ export default function AuthModal({ type }) {
             <input type="email" placeholder="email" className="minimal-input-sm mb-2" onChange={(e) => setEmail(e.target.value)} />
             <label className="minimal-label">Password</label>
             <input type="password" placeholder="password" className="minimal-input-sm mb-2" onChange={(e) => setPassword(e.target.value)} />
-            <Button caption="Sign In" submit={true} extraClass="mb-1" />
-            <p className="mb-1">or maybe you prefer</p>
+            <Button caption="Sign In" submit={true} extraClass="mb-3" />
+            {/* <p className="mb-1">or maybe you prefer</p>
             <GoogleLogin
               clientId={client_id}
               render={renderProps => (
@@ -135,7 +133,7 @@ export default function AuthModal({ type }) {
               onSuccess={onSignInSuccess}
               onFailure={onSignInError}
               cookiePolicy={'single_host_origin'}
-            />
+            /> */}
           </form>
           {/* eslint-disable-next-line */}
           <p style={{ textAlign: 'center' }}>First time using Pepperpedia? Sign up <a href="#" onClick={switchModal}>here</a></p>
