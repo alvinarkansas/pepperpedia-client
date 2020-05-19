@@ -34,7 +34,6 @@ export default function WriteRecipe() {
   }, [])
 
   const editRecipe = (values) => {
-    console.log(values);
     const { title, story, serving, cooking_duration, ingredients, steps } = values;
     dispatch(EDIT_RECIPE({
       thumbnail: url,
@@ -47,7 +46,6 @@ export default function WriteRecipe() {
     }, id))
       .then(({ data }) => {
         dispatch(FETCH_A_USER(data.UserId));
-        console.log('[ Recipe Updated ] > > > > ', data);
         dispatch(SET_NOTIF_OPEN(true));
         dispatch(SET_NOTIF_MESSAGE('Changes saved'));
         history.push(`/user/${userId}`);
@@ -74,7 +72,6 @@ export default function WriteRecipe() {
         // complete
         storage.ref('images').child(file.name).getDownloadURL()
           .then(url => {
-            console.log(url, '<<< URL image firebase');
             setUrl(url);
           })
       })

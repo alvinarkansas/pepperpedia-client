@@ -38,7 +38,6 @@ export default function WriteRecipe() {
       steps
     }))
       .then(({ data }) => {
-        console.log('successfully wrote new recipe > > > ', data);
         dispatch(FETCH_RECIPES());
         dispatch(SET_NOTIF_OPEN(true));
         dispatch(SET_NOTIF_MESSAGE('Congrats, your recipe is published'));
@@ -68,7 +67,6 @@ export default function WriteRecipe() {
         // complete
         storage.ref('images').child(file.name).getDownloadURL()
           .then(url => {
-            console.log(url, '<<< URL image firebase');
             setUrl(url);
           })
       })

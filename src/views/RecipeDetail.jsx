@@ -27,7 +27,6 @@ export default function RecipeDetail() {
     dispatch(DELETE_RECIPE(id, userId))
       .then(({ data }) => {
         dispatch(FETCH_A_USER(userId))
-        console.log('[Successfully Deleted A Recipe > > > ] ', data);
         dispatch(SET_NOTIF_OPEN(true));
         dispatch(SET_NOTIF_MESSAGE('Recipe deleted'));
         history.push(`/user/${userId}`);

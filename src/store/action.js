@@ -108,7 +108,6 @@ export const FETCH_RECIPES = () => {
         })
             .then(({ data }) => {
                 dispatch(SET_RECIPES(data));
-                console.log('> > > > ', data);
             })
             .catch(err => {
                 console.log(err);
@@ -142,7 +141,6 @@ export const FETCH_RECIPE = (id) => {
         })
             .then(({ data }) => {
                 dispatch(SET_RECIPE(data));
-                console.log('> > > > ', data);
             })
             .catch(err => {
                 console.log(err);
@@ -162,7 +160,6 @@ export const SEARCH_RECIPE = (term) => {
         })
             .then(({ data }) => {
                 dispatch(SET_SEARCHED_RECIPES(data));
-                console.log('> > > > ', data);
             })
             .catch(err => {
                 dispatch(SET_SEARCH_ERROR(err.response.data))
@@ -182,7 +179,6 @@ export const FETCH_USER_RECIPE = (userId) => {
         })
             .then(({ data }) => {
                 dispatch(SET_USER_RECIPES(data));
-                console.log('> > > > ', data);
             })
             .catch(err => {
                 console.log(err);
@@ -196,7 +192,6 @@ export const SIGN_IN = (data) => {
         axios.post(`${baseUrl}/users/signin`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
-                console.log(data);
                 dispatch(SET_IS_LOGGED_IN(true));
                 dispatch(SET_USER_DATA({
                     token,
@@ -233,7 +228,6 @@ export const SIGN_UP = (data) => {
         axios.post(`${baseUrl}/users/signup`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
-                console.log(data);
                 dispatch(SET_IS_LOGGED_IN(true));
                 dispatch(SET_USER_DATA({
                     token,
@@ -277,7 +271,6 @@ export const FETCH_A_USER = (userId) => {
         })
             .then(({ data }) => {
                 dispatch(SET_A_USER(data));
-                console.log('> > > > ', data);
             })
             .catch(err => {
                 console.log(err);
@@ -305,7 +298,6 @@ export const EDIT_PROFILE = (data) => {
                     bio: data.bio,
                     location: data.location
                 }))
-                console.log('[ Profile Updated ] > > > > ', data);
                 dispatch(SET_NOTIF_OPEN(true));
                 dispatch(SET_NOTIF_MESSAGE('Changes saved'));
             })

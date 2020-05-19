@@ -24,7 +24,6 @@ export default function Profile() {
   const { user, userRecipe } = aUser;
 
   useEffect(() => {
-    console.log('user id >>>> ', id);
     dispatch(FETCH_A_USER(id))
   }, [])
 

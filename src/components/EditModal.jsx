@@ -43,7 +43,6 @@ export default function EditModal() {
 
   const handleEditAva = e => {
     const file = e.target.files[0];
-    console.log(file);
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on('state_changed',
       (snapshot) => {
@@ -56,7 +55,6 @@ export default function EditModal() {
         // complete
         storage.ref('images').child(file.name).getDownloadURL()
           .then(url => {
-            console.log(url, '<<< URL image firebase');
             setAva(url);
           })
       })
