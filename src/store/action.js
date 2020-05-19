@@ -96,6 +96,14 @@ export const SET_EDIT_RECIPE_LOADING = (data) => {
     return { type: 'SET_EDIT_RECIPE_LOADING', payload: data }
 }
 
+export const SET_REMOVE_LOADING = (data) => {
+    return { type: 'SET_REMOVE_LOADING', payload: data }
+}
+
+export const SET_COOKMARKS = (data) => {
+    return { type: 'SET_COOKMARKS', payload: data }
+}
+
 // const baseUrl = 'http://localhost:3000';
 const baseUrl = 'https://secret-plains-42994.herokuapp.com';
 
@@ -331,6 +339,66 @@ export const EDIT_RECIPE = (data, recipeId) => {
                 token: localStorage.getItem('token')
             },
             data,
+        })
+    }
+}
+
+export const ADD_TO_COOKMARK = (data) => {
+    return (dispatch) => {
+        // dispatch(SET_ADD_LOADING(true));
+        return axios({
+            method: 'post',
+            url: `${baseUrl}/cookmarks`,
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data
+        })
+    }
+}
+
+export const FETCH_COOKMARKS = () => {
+    return (dispatch) => {
+        axios({
+            method: 'get',
+            url: `${baseUrl}/cookmarks`,
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+            .then(({ data }) => {
+                console.log('cookmarks', data);
+                dispatch(SET_COOKMARKS(data));
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+    }
+}
+
+export const CHECK_COOKMARK = (data) => {
+    return (dispatch) => {
+        // dispatch(SET_ADD_LOADING(true));
+        return axios({
+            method: 'post',
+            url: `${baseUrl}/cookmarks/check`,
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data
+        })
+    }
+}
+
+export const REMOVE_FROM_COOKMARK = (recipeId) => {
+    return (dispatch) => {
+        dispatch(SET_REMOVE_LOADING(true));
+        return axios({
+            method: 'delete',
+            url: `${baseUrl}/cookmarks/${recipeId}`,
+            headers: {
+                token: localStorage.getItem('token')
+            }
         })
     }
 }

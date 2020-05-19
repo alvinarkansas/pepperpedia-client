@@ -22,6 +22,8 @@ const initialState = {
     deleteLoading: false,
     editProfileLoading: false,
     editRecipeLoading: false,
+    removeLoading: false,
+    cookmarks: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -106,6 +108,12 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_EDIT_RECIPE_LOADING') {
         return { ...state, editRecipeLoading: action.payload }
+    }
+    if (action.type === 'SET_REMOVE_LOADING') {
+        return { ...state, removeLoading: action.payload }
+    }
+    if (action.type === 'SET_COOKMARKS') {
+        return { ...state, cookmarks: action.payload }
     }
     return state
 } 

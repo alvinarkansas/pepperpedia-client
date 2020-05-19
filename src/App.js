@@ -8,6 +8,7 @@ import RecipeDetail from './views/RecipeDetail';
 import SearchResult from './views/SearchResult';
 import Profile from './views/Profile';
 import EditRecipe from './views/EditRecipe';
+import Cookmark from './views/Cookmark';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/user/:id" component={Profile} />
         <ProtectedRoute path="/writerecipe" component={WriteRecipe} isLoggedIn={isLoggedIn} />
         <ProtectedRoute path="/editrecipe/:id" component={EditRecipe} isLoggedIn={isLoggedIn} />
+        <ProtectedRoute path="/cookmark" component={Cookmark} isLoggedIn={isLoggedIn} />
         <Route exact component={NotFound} />
       </Switch>
     </Router>

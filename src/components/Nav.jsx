@@ -39,6 +39,8 @@ export default function Nav() {
               <ul>
                 <li><a href="#recipes" onClick={() => history.push('/')}>Discover</a></li>
                 {/* eslint-disable-next-line */}
+                <li><a href="#" onClick={() => history.push('/cookmark')}>Cookmark</a></li>
+                {/* eslint-disable-next-line */}
                 <li><a href="#" onClick={() => history.push('/writerecipe')}>Write Recipe</a></li>
                 {/* eslint-disable-next-line */}
                 <li><a href="#" onClick={openPrompt}>Sign Out</a></li>
