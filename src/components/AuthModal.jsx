@@ -10,6 +10,7 @@ import {
 import Button from './Button';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import BeatLoader from 'react-spinners/BeatLoader';
 // import GoogleLogin from 'react-google-login';
 // import axios from 'axios';
 // import glogo from '../assets/glogo.png'
@@ -34,6 +35,7 @@ export default function AuthModal({ type }) {
   const modalIsOpen = useSelector(state => state.modalIsOpen);
   const modalSignUpIsOpen = useSelector(state => state.modalSignUpIsOpen);
   const authMessage = useSelector(state => state.authMessage);
+  const authLoading = useSelector(state => state.authLoading);
 
   // const onSignInSuccess = (googleUser) => {
   //   console.log(googleUser);
@@ -122,6 +124,12 @@ export default function AuthModal({ type }) {
             <input type="email" placeholder="email" className="minimal-input-sm mb-2" onChange={(e) => setEmail(e.target.value)} />
             <label className="minimal-label">Password</label>
             <input type="password" placeholder="password" className="minimal-input-sm mb-2" onChange={(e) => setPassword(e.target.value)} />
+            <BeatLoader
+              size={10}
+              margin={5}
+              color={"#F4C268"}
+              loading={authLoading}
+            />
             <Button caption="Sign In" submit={true} extraClass="mb-3" />
             {/* <p className="mb-1">or maybe you prefer</p>
             <GoogleLogin
@@ -181,6 +189,15 @@ export default function AuthModal({ type }) {
                 <input onChange={handleChange} value={values.passwordUp} name="passwordUp" type="password" placeholder="password" className="minimal-input-sm mb-2" />
                 {errors.passwordUp ? <p className="error-text">{errors.passwordUp}</p> : null}
 
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <BeatLoader
+                    size={10}
+                    margin={5}
+                    color={"#F4C268"}
+                    loading={authLoading}
+                  />
+                </div>
+                
                 <div style={{ textAlign: 'center' }}>
                   <Button caption="Sign Up" submit={true} extraClass="mb-3" />
                 </div>

@@ -88,7 +88,7 @@ export default function EditModal() {
             <label className="minimal-label">Bio</label>
             <input type="text" placeholder="how would you describe yourself?" className="minimal-input-sm mb-2" value={bio} onChange={(e) => setBio(e.target.value)} />
             <Button submit={true} extraClass="mb-1" md={true} onClick={saveChanges} caption="Save Changes" />
-            <Button submit={true} extraClass="mb-3 crimson" md={true} onClick={closeModal} caption="Cancel" />
+            <Button submit={true} extraClass="mb-2 crimson" md={true} onClick={closeModal} caption="Cancel" />
           </form>
         </div>
       </Modal>

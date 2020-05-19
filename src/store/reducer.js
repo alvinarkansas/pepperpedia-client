@@ -16,6 +16,12 @@ const initialState = {
     notifMessage: '',
     authMessage: [],
     recipesLoading: false,
+    authLoading: false,
+    searchLoading: false,
+    addLoading: false,
+    deleteLoading: false,
+    editProfileLoading: false,
+    editRecipeLoading: false,
 }
 
 export default function reducer(state = initialState, action) {
@@ -82,6 +88,24 @@ export default function reducer(state = initialState, action) {
     }
     if (action.type === 'SET_RECIPES_LOADING') {
         return { ...state, recipesLoading: action.payload }
+    }
+    if (action.type === 'SET_AUTH_LOADING') {
+        return { ...state, authLoading: action.payload }
+    }
+    if (action.type === 'SET_SEARCH_LOADING') {
+        return { ...state, searchLoading: action.payload }
+    }
+    if (action.type === 'SET_ADD_LOADING') {
+        return { ...state, addLoading: action.payload }
+    }
+    if (action.type === 'SET_DELETE_LOADING') {
+        return { ...state, deleteLoading: action.payload }
+    }
+    if (action.type === 'SET_EDIT_PROFILE_LOADING') {
+        return { ...state, editProfileLoading: action.payload }
+    }
+    if (action.type === 'SET_EDIT_RECIPE_LOADING') {
+        return { ...state, editRecipeLoading: action.payload }
     }
     return state
 } 

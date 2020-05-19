@@ -72,6 +72,30 @@ export const SET_RECIPES_LOADING = (data) => {
     return { type: 'SET_RECIPES_LOADING', payload: data }
 }
 
+export const SET_AUTH_LOADING = (data) => {
+    return { type: 'SET_AUTH_LOADING', payload: data }
+}
+
+export const SET_SEARCH_LOADING = (data) => {
+    return { type: 'SET_SEARCH_LOADING', payload: data }
+}
+
+export const SET_ADD_LOADING = (data) => {
+    return { type: 'SET_ADD_LOADING', payload: data }
+}
+
+export const SET_DELETE_LOADING = (data) => {
+    return { type: 'SET_DELETE_LOADING', payload: data }
+}
+
+export const SET_EDIT_PROFILE_LOADING = (data) => {
+    return { type: 'SET_EDIT_PROFILE_LOADING', payload: data }
+}
+
+export const SET_EDIT_RECIPE_LOADING = (data) => {
+    return { type: 'SET_EDIT_RECIPE_LOADING', payload: data }
+}
+
 // const baseUrl = 'http://localhost:3000';
 const baseUrl = 'https://secret-plains-42994.herokuapp.com';
 
@@ -97,7 +121,8 @@ export const FETCH_RECIPES = () => {
 
 export const ADD_RECIPE = (data) => {
     return (dispatch) => {
-        axios({
+        dispatch(SET_ADD_LOADING(true));
+        return axios({
             method: 'post',
             url: `${baseUrl}/recipes`,
             headers: {
@@ -105,15 +130,6 @@ export const ADD_RECIPE = (data) => {
             },
             data
         })
-            .then(({ data }) => {
-                console.log('successfully wrote new recipe > > > ', data);
-                dispatch(FETCH_RECIPES());
-                dispatch(SET_NOTIF_OPEN(true));
-                dispatch(SET_NOTIF_MESSAGE('Nice, your recipe is published'));
-            })
-            .catch(err => {
-                console.log(err.response);
-            })
     }
 }
 
@@ -139,6 +155,7 @@ export const FETCH_RECIPE = (id) => {
 
 export const SEARCH_RECIPE = (term) => {
     return (dispatch) => {
+        dispatch(SET_SEARCH_LOADING(true));
         axios({
             method: 'get',
             url: `${baseUrl}/recipes/search?term=${term}`
@@ -150,6 +167,9 @@ export const SEARCH_RECIPE = (term) => {
             .catch(err => {
                 dispatch(SET_SEARCH_ERROR(err.response.data))
                 console.log(err.response.data);
+            })
+            .finally(_ => {
+                dispatch(SET_SEARCH_LOADING(false));
             })
     }
 }
@@ -172,6 +192,7 @@ export const FETCH_USER_RECIPE = (userId) => {
 
 export const SIGN_IN = (data) => {
     return (dispatch) => {
+        dispatch(SET_AUTH_LOADING(true));
         axios.post(`${baseUrl}/users/signin`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
@@ -200,11 +221,15 @@ export const SIGN_IN = (data) => {
                 dispatch(SET_AUTH_MESSAGE([err.response.data]));
                 // err.response.data = Invalid Email/Password
             })
+            .finally(_ => {
+                dispatch(SET_AUTH_LOADING(false));
+            })
     }
 }
 
 export const SIGN_UP = (data) => {
     return (dispatch) => {
+        dispatch(SET_AUTH_LOADING(true));
         axios.post(`${baseUrl}/users/signup`, data)
             .then(({ data }) => {
                 const { token, first_name, last_name, profile_picture, id, email, bio, location } = data;
@@ -238,6 +263,9 @@ export const SIGN_UP = (data) => {
 
                 // err.response.data.message = ['first name cant be empty, lastname cant be empty, invalid email format, password should at leas have 6 chars]
             })
+            .finally(_ => {
+                dispatch(SET_AUTH_LOADING(false));
+            })
     }
 }
 
@@ -259,7 +287,8 @@ export const FETCH_A_USER = (userId) => {
 
 export const EDIT_PROFILE = (data) => {
     return (dispatch) => {
-        axios({
+        dispatch(SET_EDIT_PROFILE_LOADING(true));
+        return axios({
             method: 'put',
             url: `${baseUrl}/users`,
             headers: {
@@ -283,33 +312,27 @@ export const EDIT_PROFILE = (data) => {
             .catch(err => {
                 console.log(err);
             })
+            .finally(_ => dispatch(SET_EDIT_PROFILE_LOADING(false)))
     }
 }
 
 export const DELETE_RECIPE = (recipeId, userId) => {
     return (dispatch) => {
-        axios({
+        dispatch(SET_DELETE_LOADING(true));
+        return axios({
             method: 'delete',
             url: `${baseUrl}/recipes/${recipeId}`,
             headers: {
                 token: localStorage.getItem('token')
             }
         })
-            .then(({ data }) => {
-                dispatch(FETCH_A_USER(userId))
-                console.log('[Successfully Deleted A Recipe > > > ] ', data);
-                dispatch(SET_NOTIF_OPEN(true));
-                dispatch(SET_NOTIF_MESSAGE('Recipe deleted'));
-            })
-            .catch(err => {
-                console.log(err);
-            })
     }
 }
 
 export const EDIT_RECIPE = (data, recipeId) => {
     return (dispatch) => {
-        axios({
+        dispatch(SET_EDIT_RECIPE_LOADING(true));
+        return axios({
             method: 'put',
             url: `${baseUrl}/recipes/${recipeId}`,
             headers: {
@@ -317,14 +340,5 @@ export const EDIT_RECIPE = (data, recipeId) => {
             },
             data,
         })
-            .then(({ data }) => {
-                dispatch(FETCH_A_USER(data.UserId));
-                console.log('[ Recipe Updated ] > > > > ', data);
-                dispatch(SET_NOTIF_OPEN(true));
-                dispatch(SET_NOTIF_MESSAGE('Changes saved'));
-            })
-            .catch(err => {
-                console.log(err);
-            })
     }
 }

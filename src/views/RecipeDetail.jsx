@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_RECIPE, DELETE_RECIPE, SET_DEL_PROMPT_IS_OPEN, SET_IS_LOGGED_IN, SET_USER_DATA } from '../store/action';
+import { FETCH_RECIPE, DELETE_RECIPE, SET_DEL_PROMPT_IS_OPEN, SET_IS_LOGGED_IN, SET_USER_DATA, FETCH_A_USER, SET_NOTIF_OPEN, SET_NOTIF_MESSAGE, SET_DELETE_LOADING } from '../store/action';
 import { IoMdRestaurant, IoMdStopwatch } from 'react-icons/io';
 import UserAva from '../components/UserAva';
 import Button from '../components/Button';
 import Prompt from '../components/Prompt';
 import DelPrompt from '../components/DelPrompt';
 import noThumbnail from '../assets/nothumbnail.png';
+import BeatLoader from 'react-spinners/BeatLoader';
+import moment from 'moment';
 
 export default function RecipeDetail() {
   const { id } = useParams();
@@ -15,14 +17,25 @@ export default function RecipeDetail() {
   const history = useHistory();
   const recipe = useSelector(state => state.recipe);
   const userId = useSelector(state => state.userData.id);
+  const deleteLoading = useSelector(state => state.deleteLoading);
 
   useEffect(() => {
     dispatch(FETCH_RECIPE(id));
   }, [dispatch, id])
 
   const deleteRecipe = () => {
-    dispatch(DELETE_RECIPE(id, userId));
-    history.push(`/user/${userId}`);
+    dispatch(DELETE_RECIPE(id, userId))
+      .then(({ data }) => {
+        dispatch(FETCH_A_USER(userId))
+        console.log('[Successfully Deleted A Recipe > > > ] ', data);
+        dispatch(SET_NOTIF_OPEN(true));
+        dispatch(SET_NOTIF_MESSAGE('Recipe deleted'));
+        history.push(`/user/${userId}`);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(_ => dispatch(SET_DELETE_LOADING(false)))
   }
 
   const redirToEditPage = () => {
@@ -55,8 +68,15 @@ export default function RecipeDetail() {
               </Link>
               <p>{`${recipe.User.first_name} ${recipe.User.last_name}`}</p>
             </div>
+            <p className="mb-1" style={{ fontSize: ".9rem", color: 'grey' }}>published {moment(recipe.createdAt).format('MMMM Do YYYY')}</p>
             {recipe.UserId === userId &&
               <>
+                <BeatLoader
+                  size={10}
+                  margin={5}
+                  color={"#F4C268"}
+                  loading={deleteLoading}
+                />
                 <Button caption="Delete Recipe" md={true} extraClass="crimson mb-1" onClick={openDelPrompt} />
                 <Button caption="Edit Recipe" md={true} extraClass="mb-1" onClick={redirToEditPage} />
               </>

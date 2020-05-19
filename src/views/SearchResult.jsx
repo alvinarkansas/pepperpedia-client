@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { SET_SEARCH_ERROR } from '../store/action';
 import RecipeCard from '../components/RecipeCard';
 import errorillustration from '../assets/errorillustration.png';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -16,6 +17,7 @@ export default function SearchResult() {
 
   const searchedRecipes = useSelector(state => state.searchedRecipes);
   const searchError = useSelector(state => state.searchError);
+  const searchLoading = useSelector(state => state.searchLoading);
 
   useEffect(() => {
     if (searchedRecipes.length !== 0) {
@@ -27,6 +29,14 @@ export default function SearchResult() {
     <div className="main-wrapper">
       <p className="head-font mb-1" style={{ fontSize: '2rem' }}>{term} recipes</p>
       <p className="mb-2" style={{ fontSize: '.85rem' }}>search results for {term}</p>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <BeatLoader
+          size={20}
+          margin={5}
+          color={"#F4C268"}
+          loading={searchLoading}
+        />
+      </div>
       {searchError !== 'No recipes found' && searchedRecipes.map(recipe =>
         <div key={recipe.id} className="mb-3">
           <RecipeCard recipe={recipe} wide={true} />
@@ -37,7 +47,7 @@ export default function SearchResult() {
         <div className="error-container">
           <img src={errorillustration} alt="no recipes found" />
           <div>
-            <h2 className="mb-1" style={{fontSize: '1.25rem'}}>Wow that smells good!</h2>
+            <h2 className="mb-1" style={{ fontSize: '1.25rem' }}>Wow that smells good!</h2>
             <p>but unfortunately we don't have the recipe you're looking for</p>
           </div>
         </div>

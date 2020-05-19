@@ -3,9 +3,10 @@ import { Formik, Form, FieldArray } from 'formik';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 import { GoPlusSmall } from 'react-icons/go';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { ADD_RECIPE } from '../store/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_RECIPE, FETCH_RECIPES, SET_NOTIF_OPEN, SET_NOTIF_MESSAGE, SET_ADD_LOADING } from '../store/action';
 import Button from '../components/Button';
+import BeatLoader from 'react-spinners/BeatLoader';
 import { storage } from '../firebase';
 import placeholderpp from '../assets/placeholder-pp.png';
 import * as Yup from 'yup';
@@ -22,6 +23,7 @@ export default function WriteRecipe() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [url, setUrl] = useState('');
+  const addLoading = useSelector(state => state.addLoading);
 
   const addRecipe = (values) => {
     console.log(values);
@@ -34,8 +36,20 @@ export default function WriteRecipe() {
       cooking_duration,
       ingredients,
       steps
-    }));
-    history.push('/');
+    }))
+      .then(({ data }) => {
+        console.log('successfully wrote new recipe > > > ', data);
+        dispatch(FETCH_RECIPES());
+        dispatch(SET_NOTIF_OPEN(true));
+        dispatch(SET_NOTIF_MESSAGE('Congrats, your recipe is published'));
+        history.push('/');
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+      .finally(_ => {
+        dispatch(SET_ADD_LOADING(false));
+      })
   }
 
   const changeThumbnail = e => {
@@ -158,6 +172,15 @@ export default function WriteRecipe() {
               )}
             </FieldArray>
 
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <BeatLoader
+                size={10}
+                margin={5}
+                color={"#F4C268"}
+                loading={addLoading}
+              />
+            </div>
+            
             <div style={{ textAlign: 'center' }}>
               <Button caption="Publish" submit={true} />
             </div>
