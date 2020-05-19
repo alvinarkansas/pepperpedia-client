@@ -42,7 +42,7 @@ export default function Home() {
         <div className="grid-container mb-2">
           {recipes.slice(0, visible).map(recipe => <RecipeCard key={recipe.id} recipe={recipe} />)}
         </div>
-        {recipes.length !== visible && <Button caption="Load More" onClick={loadMore} />}
+        {recipes.length > visible && <Button caption="Load More" onClick={loadMore} />}
       </main>
       <Notification message={notifMessage} open={notifOpen} />
     </div>
