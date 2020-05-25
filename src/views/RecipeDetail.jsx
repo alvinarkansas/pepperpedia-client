@@ -115,7 +115,9 @@ export default function RecipeDetail() {
             <p className="mb-1" style={{ fontSize: ".9rem", color: 'grey' }}>Recipe by</p>
             <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} className="mb-1">
               <Link to={`/user/${recipe.UserId}`} style={{ textDecoration: 'none' }}>
-                <UserAva ava={recipe.User.profile_picture} extraClass=" mr-half" />
+                <div className="profile-picture-wrapper mr-half">
+                  {recipe.User.profile_picture === null || recipe.User.profile_picture === '' ? <p className="ava-letter">{recipe.User.first_name[0]}</p> : <img src={recipe.User.profile_picture} alt="ava" />}
+                </div>
               </Link>
               <p>{`${recipe.User.first_name} ${recipe.User.last_name}`}</p>
             </div>
